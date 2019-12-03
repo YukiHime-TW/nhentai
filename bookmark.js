@@ -2,6 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 var keys = [];
 var name;
 var tag = 0;
+var db=firebase.database();
 function start() {
     document.getElementById("bookmarks").innerHTML = search_list + "</table>";
     loadsearch();
