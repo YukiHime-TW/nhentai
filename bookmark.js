@@ -5,6 +5,20 @@ var tag = 0;
 var db = firebase.database();
 var path = "/majiku/nhentai/name/";
 var bookcount = 1;
+var firebaseConfig = {
+    apiKey: "AIzaSyAZM5RCY5TAiBYwEPselITtTA5Xgy-GPoY",
+    authDomain: "nhentai-bookmark.firebaseapp.com",
+    databaseURL: "https://nhentai-bookmark.firebaseio.com",
+    projectId: "nhentai-bookmark",
+    storageBucket: "nhentai-bookmark.appspot.com",
+    messagingSenderId: "258261687426",
+    appId: "1:258261687426:web:3926a638f89936d50ca89b",
+    measurementId: "G-EF9DB0CJW7"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
 function start() {
     document.getElementById("bookmarks").innerHTML = search_list + "</table>";
     loadsearch();
