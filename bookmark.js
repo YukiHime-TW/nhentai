@@ -3,6 +3,8 @@ var keys = [];
 var name;
 var tag = 0;
 var db=firebase.database();
+var path="/majiku/nhentai/name/";
+var bookcount=1;
 function start() {
     document.getElementById("bookmarks").innerHTML = search_list + "</table>";
     loadsearch();
@@ -16,6 +18,11 @@ function add() {
     var name = "hentai-" + document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
     localStorage.setItem(name, Url);
+    db.ref(`${path}/${bookcount}`).set({
+        name:`${name}`,
+        url:`${Url}`
+    })
+    bookcount++;
     document.getElementById("name").value = "";
     document.getElementById("URL").value = "";
     loadsearch();
