@@ -1,3 +1,6 @@
+script.src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js";
+script.src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"
+
 var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
 var keys = [];
 var name;
