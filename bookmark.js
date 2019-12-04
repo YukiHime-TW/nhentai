@@ -2,9 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 var keys = [];
 var name;
 var tag = 0;
-var db = firebase.firestore();
-var path = "/majiku/nhentai/name/";
-var bookcount = 1;
+var path = "/majiku/nhentai/book";
 var firebaseConfig = {
     apiKey: "AIzaSyAZM5RCY5TAiBYwEPselITtTA5Xgy-GPoY",
     authDomain: "nhentai-bookmark.firebaseapp.com",
@@ -26,15 +24,14 @@ function add() {
         return;
     }
 
-    var name = "hentai-" + document.getElementById("name").value;
+    var name = document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
 
-    db.collection(`${path}`).doc(`${bookcount}`).set({
+    firebase.firestore().collection(path).add({
         name: `${name}`,
-        number: `${Url}`
+        number: `${Url}`,
     });
 
-    bookcount++;
     localStorage.setItem(name, Url);
     document.getElementById("name").value = "";
     document.getElementById("URL").value = "";
