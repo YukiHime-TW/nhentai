@@ -26,12 +26,12 @@ function add() {
     }
     var name = "hentai-" + document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
-    localStorage.setItem(name, Url);
-    db.ref(`${path}/${bookcount}`).set({
-        name: `${name}`,
-        url: `${Url}`
-    })
+    db.collection(`${path}`).doc(`${bookcount}`).set({
+        name:`${name}`,
+        number:`${Url}`
+    });
     bookcount++;
+    localStorage.setItem(name, Url);
     document.getElementById("name").value = "";
     document.getElementById("URL").value = "";
     loadsearch();
