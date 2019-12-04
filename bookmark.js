@@ -24,7 +24,7 @@ function add() {
         return;
     }
 
-    var name = document.getElementById("name").value;
+    var name = "hentai-" + document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
 
     firebase.firestore().collection(path).add({
