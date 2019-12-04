@@ -17,6 +17,7 @@ function start() {
     document.getElementById("bookmarks").innerHTML = search_list + "</table>";
     loadsearch();
 }
+
 function add() {
     if (document.getElementById("name").value === "") {
         alert("請輸入標籤名稱");
@@ -35,6 +36,7 @@ function add() {
     document.getElementById("URL").value = "";
     loadsearch();
 }
+
 function loadsearch() {
     var length = localStorage.length;
     search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
@@ -50,10 +52,12 @@ function loadsearch() {
     }
     document.getElementById("bookmarks").innerHTML = search_list + "</table>";
 }
+
 function deleting() {
     localStorage.removeItem(keys[tag]);
     loadsearch();
 }
+
 function remove() {
     var confirm = window.prompt("Are you really sure about it?(Y for Yes, N for No)");
     if (confirm === "Y") {
@@ -70,5 +74,7 @@ function remove() {
     }
 
 }
+
+
 
 window.addEventListener("load", start, false);
