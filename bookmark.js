@@ -20,7 +20,6 @@ function add() {
 
     if (document.getElementById("name").value === "") {
         alert("請輸入標籤名稱");
-        document.getElementById("name").value = "";
         return;
     }
 
