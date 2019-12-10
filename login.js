@@ -71,7 +71,8 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.writeln("<input type='button' value='To your bookmark' onclick='//index.html'>")
+            document.writeln("<a href='index.html'> To Your BookMark </a>");
+            
         }
 
     });
