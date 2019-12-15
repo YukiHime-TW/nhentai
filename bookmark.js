@@ -4,7 +4,7 @@ var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;
 
 var withemailverify = ``;
 
-var noneemailverify = ``;
+var noneemailverify = `只支援看動漫`;
 
 var firebaseConfig = {
     apiKey: "AIzaSyAZM5RCY5TAiBYwEPselITtTA5Xgy-GPoY",
@@ -184,7 +184,7 @@ function initial() {
 
         } else {
 
-            document.getElementById("main").innerHTML = `<h2>漫畫筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password" 　style="display:inline;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer"><input type="submit" value="登入" onclick="signin()" id="sign"><br><br>需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>請注意，需進行<span id="highlighting">Email驗證</span>後才可使用內部機密<br></div>`
+            document.getElementById("main").innerHTML = `<h2>漫畫筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"><br><br>需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>請注意，需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`
 
         }
 
