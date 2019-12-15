@@ -21,6 +21,15 @@
             border: 1px solid black;
             padding: 4px;
         }
+        .login{
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left:-150px;
+            margin-top:-150px;
+        }
         #highlighting{
             color: red;
             font-weight: bolder;
@@ -29,6 +38,7 @@
             color: red;
             font-weight: bold;
         }
+        
     </style>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
@@ -38,8 +48,8 @@
 
 <body id="main">
 
-    <h2>漫畫筆記本</h2>
-    <div>
+    <div class="login">
+        <h2>漫畫筆記本</h2>
         帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>
         密碼: <input type="password" id="PW" placeholder="Password" 　style="display:inline;"><br><br>
         <input type="submit" value="註冊" onclick="newuser()" id="newer">
