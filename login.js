@@ -76,6 +76,7 @@ function initial() {
     });
 
 }
+
 window.onload = function () {
     initial();
 };
