@@ -8,6 +8,7 @@ var firebaseConfig = {
     authDomain: "nhentai-bookmark.firebaseapp.com",
     projectId: "nhentai-bookmark",
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
