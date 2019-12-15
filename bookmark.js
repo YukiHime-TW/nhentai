@@ -2,7 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 
 var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
-var withemailverify = `<select id="web"><option value="nhentai">Nhentai</option><option value="看動漫">看動漫</option></select>`;
+var withemailverify = `<select id="web"><option value="看動漫">看動漫</option><option value="nhentai" hidden>Nhentai</option></select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -33,6 +33,35 @@ function add() {
     var web = document.getElementById("web").value;
 
     var path = `/${user.uid}/${web}/book/`;
+
+    firebase.firestore().collection(`${path}`).doc(`${name}`).set({
+
+        number: `${Url}`,
+
+    });
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("URL").value = "";
+
+    loadsearch();
+
+}
+
+function add1() {
+
+    var user = firebase.auth().currentUser;
+
+    if (document.getElementById("name").value === "") {
+        alert("請輸入標籤名稱");
+        return;
+    }
+
+    var name = document.getElementById("name").value;
+
+    var Url = document.getElementById("URL").value;
+
+    var path = `/${user.uid}/看動漫/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
 
@@ -156,16 +185,18 @@ function signin() {
 
 function logout() {
 
-    var confirm = window.prompt("Are you really sure about it?(Y for Yes, N for No)");
-
-    if (confirm === "Y") {
+    if (confirm("Are you sure to log out?")) {
 
         firebase.auth().signOut();
+
         alert("You have logged out");
 
     } else {
+
         return;
+
     }
+
 }
 
 function initial() {
@@ -193,15 +224,38 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()"><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add1()"><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
 
             loadsearch();
 
         } else {
 
-            document.getElementById("main").innerHTML = `<div class="login"><h2>漫畫筆記本</h2>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"><br><br>需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>請注意，需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`
+            document.getElementById("main").innerHTML = `<div class="login"><h2>漫畫筆記本</h2>\
+            帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>\
+            密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br>\
+            <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;\
+            <input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;\
+            <input type="submit" value="重設密碼" onclick="resetpassword()"><br><br>\
+            需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>\
+            請注意，需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`;
 
         }
+
+    });
+
+}
+
+function resetpassword() {
+
+    var email = window.prompt("Your email");
+
+    firebase.auth().sendPasswordResetEmail(email).then(function () {
+
+        alert(`A password reset email has been sent to ${email}`);
+
+    }).catch(function (error) {
+
+        alert(`An error had happened`);
 
     });
 
