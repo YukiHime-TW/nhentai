@@ -70,8 +70,6 @@ function initial() {
             document.getElementById("sign").disabled = true;
 
             alert("You have been logged in as " + email + "!");
-
-            document.writeln("<a href='index.html'> To Your BookMark </a>");
             
         }
 
