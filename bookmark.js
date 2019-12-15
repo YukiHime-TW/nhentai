@@ -15,17 +15,19 @@ var user = firebase.auth().currentUser;
 
 function add() {
 
+    var user = firebase.auth().currentUser;
+
     if (document.getElementById("name").value === "") {
         alert("請輸入標籤名稱");
         return;
     }
 
-    var name = "hentai-" + document.getElementById("name").value;
+    var name = document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
 
-    var path = "/" + `${user.uid}` + "/nhentai";
+    var path = "/" + `${user.uid}` + "/nhentai/book/";
 
-    firebase.firestore().collection(path).doc(`${name}`).add({
+    firebase.firestore().collection(`${path}`).doc(`${name}`).set({
         number: `${Url}`,
     });
 
@@ -36,55 +38,33 @@ function add() {
 
 function loadsearch() {
 
-    var length = localStorage.length;
+    var user = firebase.auth().currentUser;
 
-    search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
+    var path = "/" + `${user.uid}` + "/nhentai/book/";
 
-    for (var i = 0; i < length; ++i) {
-        keys[i] = localStorage.key(i);
-    }
+    search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
 
-    keys.sort();
+    firebase.firestore().collection(path).get().then(function (querySnapshot) {
 
-    for (tag in keys) {
+        querySnapshot.forEach(function (doc) {
 
-        if (keys[tag].startsWith("hentai-")) {
-            name = keys[tag];
-            search_list += "<tr><td>" + keys[tag].substring(7) + "</td><td><a href='https://nhentai.net/g/" + localStorage.getItem(keys[tag]) + "/1/' target='_blank'>" + localStorage.getItem(keys[tag]) + "</a></td><td><input type='button' value='Delete' onclick='deleting()'></td></tr>";
+            console.log(doc.id, "=>", doc.data().number);
 
-        }
-    }
+            search_list += `<tr><td>${doc.id}</td><td><a href='https://nhentai.net/g/${doc.data().number}/1/' target='_blank'>${doc.data().number}</a></td><td><input type='button' value='Delete' onclick=''></td></tr>`;
 
-    document.getElementById("bookmarks").innerHTML = search_list + "</table>";
-}
+        });
 
-function deleting() {
+        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
 
-    localStorage.removeItem(keys[tag]);
-    loadsearch();
+    });
 
-}
-
-function clear() {
-
-    var confirm = window.prompt("Are you really sure about it?(Y for Yes, N for No)");
-
-    if (confirm === "Y") {
-        search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
-        document.getElementById("bookmarks").innerHTML = search_list + "</table>";
-        document.getElementById("name").value = "";
-        document.getElementById("URL").value = "";
-        tag = 0;
-    } else if (confirm === "N") {
-        return;
-    } else {
-        return;
-    }
 
 }
 
 function newuser() {
+
     var account = document.getElementById("EM").value;
+
     var password = document.getElementById("PW").value;
 
     firebase.auth().createUserWithEmailAndPassword(account, password).catch(function (error) {
@@ -145,7 +125,7 @@ function logout() {
         firebase.auth().signOut();
         alert("You have logged out");
 
-    }else{
+    } else {
         return;
     }
 }
@@ -162,11 +142,13 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = 'Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE"value="中文本本這邊請"></a>&nbsp;<input type="button" id="Clear" value="Clear All ( Only when you want to have a new start )" onclick="clear()"><br><br><span id="highlighting" style="font-size: larger;">在刪除單筆資料後，請重新整理頁面以取得正確書籤</span><br><br><div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br><span id="highlighting">重要!!網站正在更新中，請勿新增任何新的本本!</span><br>請新用戶注意，一旦開始使用，您的電腦或是手機便<span id="highlighting">不可關機</span>，否則會導致資料消失<br>且請所有用戶注意，各瀏覽器之間的紀錄<span id="highlighting">不共通</span>，使用上需注意。<br>關於這幾點，開發者已經在著手學習資料庫的使用。<br>如果有任何操作上的更新，將會在這裡進行公告。<br></div><hr><div id="bookmarks"></div><input type="button" value="Log out" onclick="logout()">';
+            document.getElementById("main").innerHTML = 'Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br><span id="highlighting" style="font-size: larger;">在刪除單筆資料後，請重新整理頁面以取得正確書籤</span><br><br><div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br><span id="highlighting">重要!!網站正在更新中，請勿新增任何新的本本!</span><br>請新用戶注意，一旦開始使用，您的電腦或是手機便<span id="highlighting">不可關機</span>，否則會導致資料消失<br>且請所有用戶注意，各瀏覽器之間的紀錄<span id="highlighting">不共通</span>，使用上需注意。<br>關於這幾點，開發者已經在著手學習資料庫的使用。<br>如果有任何操作上的更新，將會在這裡進行公告。<br></div><hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">';
+
+            loadsearch();
 
         } else {
 
-            document.getElementById("main").innerHTML = '<h2>本本筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password"　style="display:inline;width:auto;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"></div>'
+            document.getElementById("main").innerHTML = '<h2>漫畫筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password"　style="display:inline;width:auto;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"></div>'
 
         }
 
@@ -174,6 +156,4 @@ function initial() {
 
 }
 
-window.onload = function () {
-    initial();
-};
+window.addEventListener("load", initial, false);
