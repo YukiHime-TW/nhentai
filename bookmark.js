@@ -11,13 +11,13 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var user=firebase.auth().currentUser;
+var user = firebase.auth().currentUser;
 
 function add() {
 
-    var user=firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
 
-    var path = "/"+`${user.uid}`+"/nhentai/book";
+    var path = "/" + `${user.uid}` + "/nhentai/book";
 
     if (document.getElementById("name").value === "") {
         alert("請輸入標籤名稱");
@@ -141,9 +141,18 @@ function signin() {
 
 }
 
-function logout(){
-    firebase.auth().signOut();
-    alert("You have logged out");
+function logout() {
+
+    var confirm = window.prompt("Are you really sure about it?(Y for Yes, N for No)");
+
+    if (confirm === "Y") {
+
+        firebase.auth().signOut();
+        alert("You have logged out");
+
+    }else{
+        return;
+    }
 }
 
 function initial() {
@@ -152,18 +161,18 @@ function initial() {
 
         if (user) {
 
-            var email=user.email;
+            var email = user.email;
 
             document.getElementById("sign").disabled = true;
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML='Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE"value="中文本本這邊請"></a>&nbsp;<input type="button" id="Clear" value="Clear All ( Only when you want to have a new start )" onclick="remove()"><br><br><span id="highlighting" style="font-size: larger;">在刪除單筆資料後，請重新整理頁面以取得正確書籤</span><br><br><div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br><span id="highlighting">重要!!網站正在更新中，請勿新增任何新的本本!</span><br>請新用戶注意，一旦開始使用，您的電腦或是手機便<span id="highlighting">不可關機</span>，否則會導致資料消失<br>且請所有用戶注意，各瀏覽器之間的紀錄<span id="highlighting">不共通</span>，使用上需注意。<br>關於這幾點，開發者已經在著手學習資料庫的使用。<br>如果有任何操作上的更新，將會在這裡進行公告。<br></div><hr><div id="bookmarks"></div><input type="button" value="Log out" onclick="logout()">';
-            
-        }else{
+            document.getElementById("main").innerHTML = 'Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE"value="中文本本這邊請"></a>&nbsp;<input type="button" id="Clear" value="Clear All ( Only when you want to have a new start )" onclick="remove()"><br><br><span id="highlighting" style="font-size: larger;">在刪除單筆資料後，請重新整理頁面以取得正確書籤</span><br><br><div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br><span id="highlighting">重要!!網站正在更新中，請勿新增任何新的本本!</span><br>請新用戶注意，一旦開始使用，您的電腦或是手機便<span id="highlighting">不可關機</span>，否則會導致資料消失<br>且請所有用戶注意，各瀏覽器之間的紀錄<span id="highlighting">不共通</span>，使用上需注意。<br>關於這幾點，開發者已經在著手學習資料庫的使用。<br>如果有任何操作上的更新，將會在這裡進行公告。<br></div><hr><div id="bookmarks"></div><input type="button" value="Log out" onclick="logout()">';
 
-            document.getElementById("main").innerHTML='<h2>本本筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password"　style="display:inline;width:auto;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"></div>'
-        
+        } else {
+
+            document.getElementById("main").innerHTML = '<h2>本本筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password"　style="display:inline;width:auto;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"></div>'
+
         }
 
     });
