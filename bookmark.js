@@ -2,7 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 
 var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
-var withemailverify = `<select id="website"><option value="看動漫">看動漫</option><option value="nhentai" hidden>Nhentai</option></select>`;
+var withemailverify = `<select id="website"><option value="看動漫">看動漫</option><option value="動漫屋">動漫屋</option><option value="nhentai" hidden>Nhentai</option></select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -88,6 +88,16 @@ function loadsearch() {
         querySnapshot.forEach(function (doc) {
 
             search_list += `<tr><td>N站</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr><td>動漫屋</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://dm5.io/${doc.data().number}')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
 
         });
 
