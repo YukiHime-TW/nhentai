@@ -25,7 +25,7 @@ function add() {
     var name = document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
 
-    var path = "/" + `${user.uid}` + "/nhentai/book/";
+    var path = `/${user.uid}/nhentai/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
         number: `${Url}`,
@@ -40,7 +40,7 @@ function loadsearch() {
 
     var user = firebase.auth().currentUser;
 
-    var path = "/" + `${user.uid}` + "/nhentai/book/";
+    var path = `/${user.uid}/nhentai/book/`;
 
     search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
 
@@ -50,14 +50,13 @@ function loadsearch() {
 
             console.log(doc.id, "=>", doc.data().number);
 
-            search_list += `<tr><td>${doc.id}</td><td><a href='https://nhentai.net/g/${doc.data().number}/1/' target='_blank'>${doc.data().number}</a></td><td><input type='button' value='Delete' onclick=''></td></tr>`;
+            search_list += `<tr><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection(${path}).doc(${doc.id}).delete()'></td></tr>`;
 
         });
 
         document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
 
     });
-
 
 }
 
