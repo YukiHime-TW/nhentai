@@ -2,7 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 
 var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
-var withemailverify = `<select id="web"><option value="看動漫">看動漫</option><option value="nhentai" hidden>Nhentai</option></select>`;
+var withemailverify = `<select id="website"><option value="看動漫">看動漫</option><option value="nhentai" hidden>Nhentai</option></select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -30,9 +30,9 @@ function add() {
 
     var Url = document.getElementById("URL").value;
 
-    var web = document.getElementById("web").value;
+    var website = document.getElementById("website").value;
 
-    var path = `/${user.uid}/${web}/book/`;
+    var path = `/${user.uid}/${website}/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
 
