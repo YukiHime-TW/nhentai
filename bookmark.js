@@ -30,7 +30,7 @@ function add() {
 
     var Url = document.getElementById("URL").value;
 
-    var web = document.getElementById("web").text();
+    var web = document.getElementById("web").val();
 
     var path = `/${user.uid}/${web}/book/`;
 
@@ -184,7 +184,7 @@ function initial() {
 
         } else {
 
-            document.getElementById("main").innerHTML = `<h2>漫畫筆記本</h2><div>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"><br><br>需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>請注意，需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`
+            document.getElementById("main").innerHTML = `<div class="login"><h2>漫畫筆記本</h2>帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br><input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;<input type="submit" value="登入" onclick="signin()" id="sign"><br><br>需<span id="highlighting">註冊</span>後才可使用，只需提供電子郵件與密碼即可註冊<br>請注意，需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`
 
         }
 
