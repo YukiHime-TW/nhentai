@@ -50,7 +50,7 @@ function loadsearch() {
 
             console.log(doc.id, "=>", doc.data().number);
 
-            search_list += `<tr><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection(${path}).doc(${doc.id}).delete()'></td></tr>`;
+            search_list += `<tr><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("${path}").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
 
         });
 
