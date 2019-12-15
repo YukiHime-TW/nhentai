@@ -1,8 +1,8 @@
 var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
 
-var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可進入secret，否則只可使用一般模式<br></div>`;
+var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
-var withemailverify = `<select id="web"><option>Nhentai</option><option>看動漫</option></select>`;
+var withemailverify = `<select id="web"><option value="nhentai">Nhentai</option><option value="看動漫">看動漫</option></select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -30,32 +30,45 @@ function add() {
 
     var Url = document.getElementById("URL").value;
 
-    var web = document.getElementById("web").val();
+    var web = document.getElementById("web").value;
 
     var path = `/${user.uid}/${web}/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
+
         number: `${Url}`,
+
     });
 
     document.getElementById("name").value = "";
+
     document.getElementById("URL").value = "";
+
     loadsearch();
+
 }
 
 function loadsearch() {
 
     var user = firebase.auth().currentUser;
 
-    var path = `/${user.uid}/nhentai/book/`;
+    search_list = `<table><thead><tr><th>From</th><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
 
-    search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
-
-    firebase.firestore().collection(path).get().then(function (querySnapshot) {
+    firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("${path}").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+            search_list += `<tr><td>N站</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/看動漫/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr><td>看動漫</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://tw.manhuagui.com/comic/${doc.data().number}')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
 
         });
 
@@ -110,7 +123,9 @@ function newuser() {
 function signin() {
 
     if (firebase.auth().currentUser) {
+
         firebase.auth().signOut();
+
     } else {
 
         var account = document.getElementById("EM").value;
@@ -178,7 +193,7 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()"><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
 
             loadsearch();
 
