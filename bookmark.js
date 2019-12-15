@@ -15,8 +15,6 @@ var user = firebase.auth().currentUser;
 
 function add() {
 
-    var path = "/" + `${user.uid}` + "/nhentai";
-
     if (document.getElementById("name").value === "") {
         alert("請輸入標籤名稱");
         return;
@@ -24,6 +22,8 @@ function add() {
 
     var name = "hentai-" + document.getElementById("name").value;
     var Url = document.getElementById("URL").value;
+
+    var path = "/" + `${user.uid}` + "/nhentai";
 
     firebase.firestore().collection(path).doc(`${name}`).add({
         number: `${Url}`,
