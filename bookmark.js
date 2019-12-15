@@ -2,7 +2,7 @@ var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</
 
 var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可進入secret，否則只可使用一般模式<br></div>`;
 
-var withemailverify = ``;
+var withemailverify = `<select id="web"><option>Nhentai</option><option>看動漫</option></select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -30,9 +30,9 @@ function add() {
 
     var Url = document.getElementById("URL").value;
 
-    var web = document.getElementById("option").value;
+    var web = document.getElementById("web").text();
 
-    var path = `/${user.uid}/nhentai/book/`;
+    var path = `/${user.uid}/${web}/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
         number: `${Url}`,
@@ -166,7 +166,7 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${withemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
 
             loadsearch();
 
@@ -178,7 +178,7 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required /><br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
 
             loadsearch();
 
