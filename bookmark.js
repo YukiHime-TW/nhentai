@@ -372,7 +372,7 @@ function initial() {
 
         } else {
 
-            document.getElementById("main").innerHTML = `<div class="login"><h2>漫畫筆記本</h2>
+            document.getElementById("main").innerHTML = `<div id="login"><h2>漫畫筆記本</h2>
             帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
             密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
             <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
