@@ -192,7 +192,15 @@ function up() {
 
     var read = window.prompt("讀到哪裡?\r( Where have you read to? )");
 
-    return read;
+    if(read){
+
+        return read;
+
+    }else{
+
+        return;
+        
+    }
 
 }
 
