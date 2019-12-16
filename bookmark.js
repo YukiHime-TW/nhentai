@@ -192,8 +192,6 @@ function up() {
 
     var read = window.prompt("讀到哪裡?\r( Where have you read to? )");
 
-    document.getElementById().setAttribute
-
     return read;
 
 }
