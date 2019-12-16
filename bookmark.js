@@ -334,14 +334,15 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page">Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
-                                                        Read to: <input type="text" id="readto" value="" required />&nbsp;${withemailverify}<br><br>
+                                                        Read to: <input type="text" id="readto" value="" required /><br><br>
+                                                        From: ${withemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="登出 ( Log out )" onclick="logout()">`;
+                                                        <input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
             //https://nhentai.net/language/chinese/
 
             loadsearch();
@@ -358,14 +359,14 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page">Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
-                                                        Read to: <input type="text" id="readto" value="" required />&nbsp;${noneemailverify}<br><br>
+                                                        Read to: <input type="text" id="readto" value="" required /><br><br>${noneemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="登出 ( Log out )" onclick="logout()">`;
+                                                        <input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
 
             loadsearch();
 
