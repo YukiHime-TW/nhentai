@@ -312,11 +312,11 @@ function initial() {
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${withemailverify}<br><br>
-                                                        <input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;
+                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="Log out" onclick="logout()">`;
+                                                        <input type="button" value="登出 ( Log out )" onclick="logout()">`;
             //https://nhentai.net/language/chinese/
 
             loadsearch();
@@ -332,10 +332,10 @@ function initial() {
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${noneemailverify}<br><br>
-                                                        <input type="button" id="add_new" value="Add New Book" onclick="add1()"><br><br>
+                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()"><br><br>
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="Log out" onclick="logout()">`;
+                                                        <input type="button" value="登出 ( Log out )" onclick="logout()">`;
 
             loadsearch();
 
