@@ -15,9 +15,13 @@ var withemailverify = `<select id="website">
 var noneemailverify = `只支援看動漫`;
 
 var firebaseConfig = {
+
     apiKey: "AIzaSyAZM5RCY5TAiBYwEPselITtTA5Xgy-GPoY",
+
     authDomain: "nhentai-bookmark.firebaseapp.com",
+
     projectId: "nhentai-bookmark",
+
 };
 
 // Initialize Firebase
@@ -32,8 +36,11 @@ function add() {
     var user = firebase.auth().currentUser;
 
     if (document.getElementById("name").value === "") {
+
         alert("請輸入標籤名稱");
+
         return;
+
     }
 
     var name = document.getElementById("name").value;
@@ -69,8 +76,11 @@ function add1() {
     var user = firebase.auth().currentUser;
 
     if (document.getElementById("name").value === "") {
+
         alert("請輸入標籤名稱");
+
         return;
+        
     }
 
     var name = document.getElementById("name").value;
@@ -260,11 +270,13 @@ function signin() {
     } else {
 
         var account = document.getElementById("EM").value;
+
         var password = document.getElementById("PW").value;
 
         firebase.auth().signInWithEmailAndPassword(account, password).catch(function (error) {
 
             var errorCode = error.code;
+            
             var errorMessage = error.message;
 
             if (errorCode === "auth/wrong-password") {
