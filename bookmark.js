@@ -80,7 +80,7 @@ function add1() {
         alert("請輸入標籤名稱");
 
         return;
-        
+
     }
 
     var name = document.getElementById("name").value;
@@ -205,11 +205,11 @@ function up() {
 
     var read = window.prompt("讀到哪裡?\r( Where have you read to? )");
 
-    if(read){
+    if (read) {
 
         return read;
 
-    }else{
+    } else {
 
         return;
 
@@ -276,7 +276,7 @@ function signin() {
         firebase.auth().signInWithEmailAndPassword(account, password).catch(function (error) {
 
             var errorCode = error.code;
-            
+
             var errorMessage = error.message;
 
             if (errorCode === "auth/wrong-password") {
@@ -332,7 +332,7 @@ function initial() {
 
             document.getElementById("resetPW").disabled = true;
 
-            alert( `你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
@@ -342,7 +342,7 @@ function initial() {
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
-                                                        //https://nhentai.net/language/chinese/
+            //https://nhentai.net/language/chinese/
 
             loadsearch();
 
@@ -356,7 +356,7 @@ function initial() {
 
             document.getElementById("resetPW").disabled = true;
 
-            alert( `你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
