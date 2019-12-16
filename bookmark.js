@@ -1,7 +1,10 @@
 var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
 
-var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>
-                網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
+var bulletin = `<div id="bulletin_board">
+                    <span id="topic">&spades;公告&spades;</span><br>
+                    網站已全面更新<br>
+                    Email驗證後才可使用全部內容，否則只可使用限制模式<br>
+                </div>`;
 
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
@@ -199,7 +202,7 @@ function up() {
     }else{
 
         return;
-        
+
     }
 
 }
@@ -327,7 +330,7 @@ function initial() {
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
-            //https://nhentai.net/language/chinese/
+                                                        //https://nhentai.net/language/chinese/
 
             loadsearch();
 
