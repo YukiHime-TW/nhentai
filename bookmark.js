@@ -4,8 +4,8 @@ var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;
                 網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
 var withemailverify = `<select id="website">
-                        <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
+                        <option value="看動漫">看動漫</option>
                         <option value="nhentai" hidden>Nhentai</option>
                         </select>`;
 
