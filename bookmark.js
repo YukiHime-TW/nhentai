@@ -313,7 +313,7 @@ function initial() {
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${withemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
-                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>
+                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
