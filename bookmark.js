@@ -1,8 +1,13 @@
 var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
 
-var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
+var bulletin = `<div id="bulletin_board"><span id="topic">&spades;公告&spades;</span><br>
+                網站已全面更新<br>Email驗證後才可使用全部內容，否則只可使用限制模式<br></div>`;
 
-var withemailverify = `<select id="website"><option value="看動漫">看動漫</option><option value="動漫屋">動漫屋</option><option value="nhentai" hidden>Nhentai</option></select>`;
+var withemailverify = `<select id="website">
+                        <option value="看動漫">看動漫</option>
+                        <option value="動漫屋">動漫屋</option>
+                        <option value="nhentai" hidden>Nhentai</option>
+                        </select>`;
 
 var noneemailverify = `只支援看動漫`;
 
@@ -16,6 +21,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var user = firebase.auth().currentUser;
+
+var count = 0;
 
 function add() {
 
@@ -32,17 +39,23 @@ function add() {
 
     var website = document.getElementById("website").value;
 
+    var read_to = document.getElementById("readto").value;
+
     var path = `/${user.uid}/${website}/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
 
         number: `${Url}`,
 
+        readto: `${read_to}`
+
     });
 
     document.getElementById("name").value = "";
 
     document.getElementById("URL").value = "";
+
+    document.getElementById("readto").value = "";
 
     loadsearch();
 
@@ -61,17 +74,23 @@ function add1() {
 
     var Url = document.getElementById("URL").value;
 
+    var read_to = document.getElementById("readto").value;
+
     var path = `/${user.uid}/看動漫/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
 
         number: `${Url}`,
 
+        readto: `${read_to}`
+
     });
 
     document.getElementById("name").value = "";
 
     document.getElementById("URL").value = "";
+
+    document.getElementById("readto").value = "";
 
     loadsearch();
 
@@ -81,13 +100,38 @@ function loadsearch() {
 
     var user = firebase.auth().currentUser;
 
-    search_list = `<table><thead><tr><th>From</th><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
+    search_list = `<table>
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Book Name</th>
+                            <th>Read to</th>
+                            <th>Edit Read to</th>
+                            <th>Link</th>
+                            <th>Delete</th>
+                            <th>Share</th>
+                        </tr>
+                    </thead>`;
 
     firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr><td>N站</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://nhentai.net/g/${doc.data().number}/1/')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+            search_list += `<tr>
+                                <td>N站</td>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/1/");'></input></td>
+                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td>
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
+                                </input>
+                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/1/' hidden></input>
+                                </td>   
+                            </tr>`;
+
+            count++;
 
         });
 
@@ -97,7 +141,21 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr><td>動漫屋</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://dm5.io/${doc.data().number}')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+            search_list += `<tr>
+                                <td>動漫屋</td>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://dm5.io/${doc.data().number}/");'></input></td>
+                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td>
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
+                                </input>                                
+                                <input type="hidden" id='we${count}' value='https://dm5.io/${doc.data().number}/'></input>
+                                </td>
+                            </tr>`;
+
+            count++;
 
         });
 
@@ -107,13 +165,39 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr><td>看動漫</td><td>${doc.id}</td><td><input type="button" onclick="javascript:window.open('https://tw.manhuagui.com/comic/${doc.data().number}')" value="GO!"></input></td><td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td></tr>`;
+            search_list += `<tr>
+                                <td>看動漫</td>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://tw.manhuagui.com/comic/${doc.data().number}/");'></input></td>
+                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td>
+                                    <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
+                                    </input>
+                                    <input type="hidden" id='we${count}' value='https://tw.manhuagui.com/comic/${doc.data().number}/' ></input>
+                                </td>
+                            </tr>`;
+
+            count++;
 
         });
 
         document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
 
+        count = 0;
+
     });
+
+}
+
+function up() {
+
+    var read = window.prompt("Where do you read to?");
+
+    document.getElementById().setAttribute
+
+    return read;
 
 }
 
@@ -222,7 +306,15 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${withemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+                                                        Numbers: <input type="text" id="URL" value="" required /><br><br>
+                                                        Read to: <input type="text" id="readto" value="" required />&nbsp;${withemailverify}<br><br>
+                                                        <input type="button" id="add_new" value="Add New Book" onclick="add()">&nbsp;
+                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="中文本本這邊請"></a><br><br>
+                                                        ${bulletin}<hr>
+                                                        <div id="bookmarks"></div><br>
+                                                        <input type="button" value="Log out" onclick="logout()">`;
+            //https://nhentai.net/language/chinese/
 
             loadsearch();
 
@@ -234,7 +326,13 @@ function initial() {
 
             alert("You have been logged in as " + email + "!");
 
-            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>Numbers: <input type="text" id="URL" value="" required />&nbsp;${noneemailverify}<br><br><input type="button" id="add_new" value="Add New Book" onclick="add1()"><br><br>${bulletin}<hr><div id="bookmarks"></div><br><input type="button" value="Log out" onclick="logout()">`;
+            document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+                                                        Numbers: <input type="text" id="URL" value="" required /><br><br>
+                                                        Read to: <input type="text" id="readto" value="" required />&nbsp;${noneemailverify}<br><br>
+                                                        <input type="button" id="add_new" value="Add New Book" onclick="add1()"><br><br>
+                                                        ${bulletin}<hr>
+                                                        <div id="bookmarks"></div><br>
+                                                        <input type="button" value="Log out" onclick="logout()">`;
 
             loadsearch();
 
