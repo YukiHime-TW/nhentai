@@ -339,7 +339,7 @@ function initial() {
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${withemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
-                                                        ${bulletin}<hr>
+                                                        ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
             //https://nhentai.net/language/chinese/
@@ -363,7 +363,7 @@ function initial() {
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${noneemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
-                                                        ${bulletin}<hr>
+                                                        ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
 
@@ -372,8 +372,8 @@ function initial() {
         } else {
 
             document.getElementById("main").innerHTML = `<div class="login"><h2>漫畫筆記本</h2>
-            帳號: <input type="text" id="EM" placeholder="Your Email" required　style="display:inline;width:auto;"><br><br>
-            密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br>
+            帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
+            密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
             <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
             <input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;
             <input type="submit" value="重設密碼" onclick="resetpassword()" id="resetPW"><br><br>
