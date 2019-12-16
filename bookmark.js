@@ -307,6 +307,10 @@ function initial() {
 
             document.getElementById("sign").disabled = true;
 
+            document.getElementById("newer").disabled = true;
+
+            document.getElementById("resetPW").disabled = true;
+
             alert( `你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
@@ -326,6 +330,10 @@ function initial() {
             var email = user.email;
 
             document.getElementById("sign").disabled = true;
+
+            document.getElementById("newer").disabled = true;
+
+            document.getElementById("resetPW").disabled = true;
 
             alert( `你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
@@ -347,7 +355,7 @@ function initial() {
             密碼: <input type="password" id="PW" placeholder="Password" style="display:inline;"><br><br>
             <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
             <input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;
-            <input type="submit" value="重設密碼" onclick="resetpassword()"><br><br>
+            <input type="submit" value="重設密碼" onclick="resetpassword()" id="resetPW"><br><br>
             需<span id="highlighting">註冊</span>後才可使用<br>
             只需提供電子郵件與密碼即可註冊<br><br>
             <span id='highlighting'>請注意</span><br>
