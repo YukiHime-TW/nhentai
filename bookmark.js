@@ -332,7 +332,8 @@ function initial() {
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required />&nbsp;${noneemailverify}<br><br>
-                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()"><br><br>
+                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
+                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<hr>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()">`;
