@@ -9,8 +9,8 @@ var bulletin = `<div id="bulletin_board">
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
-                        <option value="nhentai" hidden>Nhentai</option>
                         <option value="wnacg" hidden>WNACG 紳士倉庫</option>
+                        <option value="nhentai" hidden>Nhentai</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
