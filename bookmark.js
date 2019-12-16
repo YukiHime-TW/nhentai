@@ -125,8 +125,7 @@ function loadsearch() {
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/1/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
-                                </input>
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
                                 <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/1/' hidden></input>
                                 </td>   
                             </tr>`;
@@ -149,8 +148,7 @@ function loadsearch() {
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://dm5.io/${doc.data().number}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
-                                </input>                                
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>                                
                                 <input type="hidden" id='we${count}' value='https://dm5.io/${doc.data().number}/'></input>
                                 </td>
                             </tr>`;
@@ -173,8 +171,7 @@ function loadsearch() {
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://tw.manhuagui.com/comic/${doc.data().number}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
-                                    <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'>
-                                    </input>
+                                    <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
                                     <input type="hidden" id='we${count}' value='https://tw.manhuagui.com/comic/${doc.data().number}/' ></input>
                                 </td>
                             </tr>`;
