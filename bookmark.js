@@ -190,7 +190,7 @@ function loadsearch() {
 
 function up() {
 
-    var read = window.prompt("Where do you read to?");
+    var read = window.prompt("讀到哪裡? ( Where have you read to? )");
 
     document.getElementById().setAttribute
 
@@ -208,11 +208,11 @@ function newuser() {
 
         firebase.auth().currentUser.sendEmailVerification().then(function () {
 
-            alert("An verify email has been send");
+            alert("驗證信已經寄出! ( Verify email has been send! )");
 
         }).catch(function (error) {
 
-            alert("An error has happened");
+            alert("發生錯誤! ( Error happened ! )");
 
         });
 
@@ -224,7 +224,9 @@ function newuser() {
 
         if (errorCode == "auth/weak-password") {
 
-            alert("The password is too weak");
+            alert("密碼強度過低，請重新輸入 ( The password is too weak, please change one )");
+
+            document.getElementById("PW").value = "";
 
         } else {
 
@@ -257,9 +259,13 @@ function signin() {
             var errorMessage = error.message;
 
             if (errorCode === "auth/wrong-password") {
-                alert("Wrong password");
+
+                alert("密碼錯誤 ( Wrong password )");
+
             } else {
+
                 alert(errorMessage);
+
             }
 
             console.log(error);
@@ -276,11 +282,11 @@ function signin() {
 
 function logout() {
 
-    if (confirm("Are you sure to log out?")) {
+    if (confirm("你確定要登出嗎? ( Are you sure to log out? )")) {
 
         firebase.auth().signOut();
 
-        alert("You have logged out");
+        alert("已登出 (You have logged out)");
 
     } else {
 
@@ -301,7 +307,7 @@ function initial() {
 
             document.getElementById("sign").disabled = true;
 
-            alert("You have been logged in as " + email + "!");
+            alert( `你以 ${email} 的身分登入了 ( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
@@ -321,7 +327,7 @@ function initial() {
 
             document.getElementById("sign").disabled = true;
 
-            alert("You have been logged in as " + email + "!");
+            alert( `你以 ${email} 的身分登入了 ( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = `Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
@@ -354,15 +360,15 @@ function initial() {
 
 function resetpassword() {
 
-    var email = window.prompt("Your email");
+    var email = window.prompt("請輸入你的電子郵件信箱 ( Your email )");
 
     firebase.auth().sendPasswordResetEmail(email).then(function () {
 
-        alert(`A password reset email has been sent to ${email}`);
+        alert(`一封密碼重設的信件已寄至 ${email} ( A password reset email has been sent to ${email} )`);
 
     }).catch(function (error) {
 
-        alert(`An error had happened`);
+        alert("發生錯誤! ( Error happened ! )");
 
     });
 
