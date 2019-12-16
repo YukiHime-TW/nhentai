@@ -10,6 +10,7 @@ var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
                         <option value="nhentai" hidden>Nhentai</option>
+                        <option value="wnacg" hidden>WNACG 紳士倉庫</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
@@ -140,6 +141,29 @@ function loadsearch() {
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
                                 <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/1/' hidden></input>
+                                </td>   
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>WNACG 紳士倉庫</td>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html");'></input></td>
+                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td>
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html' hidden></input>
                                 </td>   
                             </tr>`;
 
