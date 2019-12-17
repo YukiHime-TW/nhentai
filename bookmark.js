@@ -279,7 +279,7 @@ function loadsearch() {
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/exhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}/'></input>
+                                <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}'></input>
                                 </td>   
                             </tr>`;
 
@@ -440,7 +440,7 @@ function readto_update() {
 
 function bookname_update() {
 
-    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`)
+    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`);
 
     if (book_name) {
 
