@@ -31,7 +31,7 @@ ID: <input type="text" id="URL" value="" required /><br><br>
 Read to: <input type="text" id="readto" value="1" required /><br><br>
 From: ${withemailverify}<br><br>
 <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
-<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
+<a href="https://e-hentai.org/?f_cats=767" target="_blank"><input type="button" id="CHINESE" value="人類最大線上圖書館(表)"></a><br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
