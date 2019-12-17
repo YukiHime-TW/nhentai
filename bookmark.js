@@ -242,7 +242,7 @@ function loadsearch() {
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}/'></input>
+                                <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}'></input>
                                 </td>   
                             </tr>`;
 
