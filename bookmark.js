@@ -135,12 +135,12 @@ function loadsearch() {
                                 <td>N站</td>
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/1/");'></input></td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/${doc.data().readto}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/1/' hidden></input>
+                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/' hidden></input>
                                 </td>   
                             </tr>`;
 
@@ -158,7 +158,7 @@ function loadsearch() {
                                 <td>WNACG 紳士倉庫</td>
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
@@ -181,7 +181,7 @@ function loadsearch() {
                                 <td>動漫屋</td>
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://dm5.io/${doc.data().number}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
@@ -204,7 +204,7 @@ function loadsearch() {
                                 <td>看動漫</td>
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").update({readto:up()});loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://tw.manhuagui.com/comic/${doc.data().number}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
@@ -225,9 +225,9 @@ function loadsearch() {
 
 }
 
-function up() {
+function readto_update() {
 
-    var read = window.prompt("讀到哪裡?\r( Where have you read to? )");
+    var read = window.prompt(`讀到哪裡?\r( Where have you read to? )`);
 
     if (read) {
 
@@ -240,6 +240,21 @@ function up() {
     }
 
 }
+
+/*function bookname_update() {
+
+    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`)
+
+    if (book_name) {
+
+        return book_name;
+
+    } else {
+
+        return;
+
+    }
+}*/
 
 function newuser() {
 
@@ -366,11 +381,11 @@ function initial() {
                                                         <a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
-            
-                                                        //https://nhentai.net/language/chinese/
+                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
 
-                                                            //https://tw.manhuagui.com/
+            //https://nhentai.net/language/chinese/
+
+            //https://tw.manhuagui.com/
 
             loadsearch();
 
@@ -393,7 +408,7 @@ function initial() {
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
+                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
 
             loadsearch();
 
