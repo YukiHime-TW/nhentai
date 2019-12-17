@@ -454,7 +454,7 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page">Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page"><h2>漫畫筆記本</h2>Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required /><br><br>
                                                         From: ${withemailverify}<br><br>
@@ -482,7 +482,7 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page">Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page"><h2>漫畫筆記本</h2>Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required /><br><br>
                                                         ${noneemailverify}<br><br>
