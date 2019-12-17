@@ -234,14 +234,11 @@ function loadsearch() {
                                 loadsearch();
                                 '></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").update({readto:readto_update()});
-                                loadsearch();'></input>
-                                </td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://e-hentai.org/g/${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}'></input>
                                 </td>   
                             </tr>`;
@@ -271,15 +268,12 @@ function loadsearch() {
                                 loadsearch();
                                 '></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/exhentai/book/").doc("${doc.id}").update({readto:readto_update()});
-                                loadsearch();'></input>
-                                </td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://exhentai.org/g/${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/exhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}'></input>
+                                    <input type='button' value='Share' onclick='sharing(${count})'></input>
+                                    <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}'></input>
                                 </td>   
                             </tr>`;
 
@@ -308,14 +302,11 @@ function loadsearch() {
                                 loadsearch();
                                 '></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:readto_update()});
-                                loadsearch();'></input>
-                                </td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/${doc.data().readto}/");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_nhentai(${doc.data().number},${doc.data().readto});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/'></input>
                                 </td>   
                             </tr>`;
@@ -341,11 +332,11 @@ function loadsearch() {
                             
                                 });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_wnacg(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html'></input>
                                 </td>   
                             </tr>`;
@@ -371,11 +362,11 @@ function loadsearch() {
                             
                                 });firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://dm5.io/${doc.data().number}/");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_comichouse(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>                                
+                                <input type='button' value='Share' onclick='sharing(${count})'></input>                                
                                 <input type="hidden" id='we${count}' value='https://dm5.io/${doc.data().number}/'></input>
                                 </td>
                             </tr>`;
@@ -393,19 +384,13 @@ function loadsearch() {
             search_list += `<tr>
                                 <td>看動漫</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc(bookname_update()).set({number: "${doc.data().number}",readto: "${doc.data().readto}"});firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
-                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://tw.manhuagui.com/comic/${doc.data().number}/");'></input></td>
-                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_watchcomic(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
                                 <td>
-                                    <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                    <input type='button' value='Share' onclick='sharing(${count})'></input>
                                     <input type="hidden" id='we${count}' value='https://tw.manhuagui.com/comic/${doc.data().number}/' ></input>
                                 </td>
                             </tr>`;
@@ -419,6 +404,151 @@ function loadsearch() {
         count = 0;
 
     });
+
+}
+
+function edit_readto_ehentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_ehentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+
+}
+
+function go_ehentai(doc) {
+
+    window.open(`https://e-hentai.org/g/${doc}`);
+
+}
+
+function edit_readto_exhentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_exhentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+
+}
+
+function go_exhentai(doc) {
+
+    window.open(`https://exhentai.org/g/${doc}`);
+
+}
+
+function edit_readto_nhentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_nhentai(user, doc) {
+
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+
+}
+
+function go_nhentai(doc, reading) {
+
+    window.open(`https://nhentai.net/g/${doc}/${reading}`);
+
+}
+
+function edit_readto_wnacg(user, doc) {
+
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_wnacg(user, doc) {
+
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+
+}
+
+function go_wnacg(doc) {
+
+    window.open(`https://dm5.io/${doc}/`);
+
+}
+
+function edit_readto_comichouse(user, doc) {
+
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_comichouse(user, doc) {
+
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+
+}
+
+function go_comichouse(doc) {
+
+    window.open(`https://dm5.io/${doc}/`);
+
+}
+
+function edit_readto_watchcomic(user, doc) {
+
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${doc}`).update({ readto: readto_update() });
+
+    loadsearch();
+
+}
+
+function delete_watchcomic(user, doc) {
+
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${doc}`).delete();
+
+    loadsearch();
+}
+
+function go_watchcomic(doc) {
+
+    window.open(`https://tw.manhuagui.com/comic/${doc}/`);
+
+}
+
+function sharing(count) {
+
+    document.getElementById(`we${count}`).setAttribute("type", "text");
+
+    document.getElementById(`we${count}`).select();
+
+    document.execCommand("copy");
+
+    document.getElementById(`we${count}`).setAttribute("type", "hidden");
+
+    alert("複製成功! (Copy sucessful! )");
 
 }
 
@@ -644,7 +774,7 @@ function refreshing() {
 
     document.getElementById('bookmarks').innerHTML = '';
 
-    document.getElementById('refresh').disabled=true;
+    document.getElementById('refresh').disabled = true;
 
     loadsearch();
 
