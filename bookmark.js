@@ -60,7 +60,7 @@ function add() {
         return;
     }
 
-    if (website === "nhentai" || website==="wnacg") {
+    if (website === "nhentai" || website === "wnacg") {
 
         if (int_check()) {
 
@@ -165,6 +165,7 @@ function loadsearch() {
                         <tr>
                             <th>From</th>
                             <th>Book Name</th>
+                            <th>Edit Book Name</th>
                             <th>Read to</th>
                             <th>Edit Read to</th>
                             <th>Link</th>
@@ -178,10 +179,24 @@ function loadsearch() {
         querySnapshot.forEach(function (doc) {
 
             search_list += `<tr>
-                                <td>N站</td>
+                                <td>Nhentai</td>
                                 <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='
+                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc(bookname_update()).set({
+
+                                    number: ${doc.data().number},
+                            
+                                    readto: ${doc.data().readto}
+                            
+                                });
+                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();
+                                loadsearch();
+                                '></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
+                                <td><input type="button" value="Edit" onclick='
+                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").update({readto:readto_update()});
+                                loadsearch();'></input>
+                                </td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://nhentai.net/g/${doc.data().number}/${doc.data().readto}/");'></input></td>
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
@@ -203,6 +218,13 @@ function loadsearch() {
             search_list += `<tr>
                                 <td>WNACG 紳士倉庫</td>
                                 <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc(bookname_update()).set({
+
+                                    number: ${doc.data().number},
+                            
+                                    readto: ${doc.data().readto}
+                            
+                                });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html");'></input></td>
@@ -226,6 +248,13 @@ function loadsearch() {
             search_list += `<tr>
                                 <td>動漫屋</td>
                                 <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc(bookname_update()).set({
+
+                                    number: "${doc.data().number}",
+                            
+                                    readto: "${doc.data().readto}"
+                            
+                                });firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://dm5.io/${doc.data().number}/");'></input></td>
@@ -249,6 +278,13 @@ function loadsearch() {
             search_list += `<tr>
                                 <td>看動漫</td>
                                 <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc(bookname_update()).set({
+
+                                    number: "${doc.data().number}",
+                            
+                                    readto: "${doc.data().readto}"
+                            
+                                });firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").update({readto:readto_update()});loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='javascript:window.open("https://tw.manhuagui.com/comic/${doc.data().number}/");'></input></td>
@@ -287,7 +323,7 @@ function readto_update() {
 
 }
 
-/*function bookname_update() {
+function bookname_update() {
 
     var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`)
 
@@ -300,7 +336,7 @@ function readto_update() {
         return;
 
     }
-}*/
+}
 
 function newuser() {
 
