@@ -9,6 +9,7 @@ var bulletin = `<div id="bulletin_board">
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
+                        <option value="read_only" disabled>以下Read to僅限輸入數字</option>
                         <option value="nhentai">Nhentai</option>
                         <option value="wnacg">WNACG 紳士倉庫</option>
                         </select>`;
@@ -52,6 +53,28 @@ function add() {
 
     var read_to = document.getElementById("readto").value;
 
+    if (read_to === "") {
+
+        alert("請輸入讀到哪裡\r( Please input Read to )");
+
+        return;
+    }
+
+    if (website === "nhentai" || website==="wnacg") {
+
+        if (int_check()) {
+
+        } else {
+
+            alert("該類別下，Read to只允許正整數");
+
+            document.getElementById("readto").value = "";
+
+            return;
+
+        }
+    }
+
     var path = `/${user.uid}/${website}/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
@@ -69,6 +92,29 @@ function add() {
     document.getElementById("readto").value = "";
 
     loadsearch();
+
+}
+
+function int_check() {
+
+    var read_to = document.getElementById("readto").value;
+
+    if (read_to == "") {
+
+    } else {
+
+        var r = /^\+?[1-9][0-9]*$/;
+
+        if (r.test(read_to)) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
 
 }
 
