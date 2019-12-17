@@ -6,6 +6,7 @@ var bulletin = `<div id="bulletin_board">
                     Email驗證後才可使用全部內容，否則只可使用限制模式<br>
                     驗證後請重新整理頁面以獲得全部內容的通行權限<br>
                     人類線上最大圖書館(裏)需先登入表站後才可正常進入，敬請見諒<br>
+                    其他更新請往Twitter查看<br>
                     <a href="https://twitter.com/yukihimenote" target="_blank"><input type="button" value="網站Twitter，任何建議與錯誤回報請往這裡"></a><br>
                 </div>`;
 
@@ -36,7 +37,7 @@ From: ${withemailverify}<br><br>
 <a href="https://e-hentai.org/?f_cats=767" target="_blank"><input type="button" id="CHINESE" value="人類最大線上圖書館(表)"></a><br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
-<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
 </div>`;
 
 var noneemailverifed = `<div class=video-container>
@@ -54,7 +55,7 @@ ${noneemailverify}<br><br>
 <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
-<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
 </div>`;
 
 var firebaseConfig = {
@@ -636,6 +637,24 @@ function resetpassword() {
         alert("發生錯誤!\r( Error happened ! )");
 
     });
+
+}
+
+function refreshing() {
+
+    document.getElementById('bookmarks').innerHTML = '';
+
+    document.getElementById('refresh').disabled=true;
+
+    loadsearch();
+
+    setTimeout("document.getElementById('refresh').disabled=false;", 3000);
+
+}
+
+function reverse() {
+
+
 
 }
 
