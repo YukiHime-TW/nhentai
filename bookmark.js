@@ -200,7 +200,7 @@ function loadsearch() {
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/' hidden></input>
+                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/'></input>
                                 </td>   
                             </tr>`;
 
@@ -230,7 +230,7 @@ function loadsearch() {
                                 <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
-                                <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html' hidden></input>
+                                <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html'></input>
                                 </td>   
                             </tr>`;
 
@@ -484,7 +484,8 @@ function initial() {
 
             document.getElementById("main").innerHTML = `<div id="page">Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
-                                                        Read to: <input type="text" id="readto" value="" required /><br><br>${noneemailverify}<br><br>
+                                                        Read to: <input type="text" id="readto" value="" required /><br><br>
+                                                        ${noneemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<br>
