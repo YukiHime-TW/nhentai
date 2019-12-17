@@ -4,12 +4,14 @@ var bulletin = `<div id="bulletin_board">
                     <span id="topic">&spades;公告&spades;</span><br>
                     網站已全面更新<br>
                     Email驗證後才可使用全部內容，否則只可使用限制模式<br>
+                    Email驗證後請重新整理頁面以獲得全部內容的通行權限<br>
                 </div>`;
 
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
                         <option value="wnacg">WNACG 紳士倉庫</option>
+                        <option value="ehentai">人類線上最大圖書館( /g/ 以後的所有東西 )</option>
                         <option value="read_only" disabled>以下Read to僅限輸入數字</option>
                         <option value="nhentai">Nhentai</option>
                         </select>`;
@@ -17,14 +19,14 @@ var withemailverify = `<select id="website">
 var noneemailverify = `只支援看動漫`;
 
 var withemailverified = `<div class=video-container>
-<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=0&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
 <br>
 <span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
 </div>
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
-Numbers: <input type="text" id="URL" value="" required /><br><br>
+ID: <input type="text" id="URL" value="" required /><br><br>
 Read to: <input type="text" id="readto" value="" required /><br><br>
 From: ${withemailverify}<br><br>
 <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
@@ -42,7 +44,7 @@ var noneemailverifed = `<div class=video-container>
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
-Numbers: <input type="text" id="URL" value="" required /><br><br>
+ID: <input type="text" id="URL" value="" required /><br><br>
 Read to: <input type="text" id="readto" value="" required /><br><br>
 ${noneemailverify}<br><br>
 <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
@@ -208,6 +210,43 @@ function loadsearch() {
                             <th>Share</th>
                         </tr>
                     </thead>`;
+
+    firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>E-Hentai</td>
+                                <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='
+                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc(bookname_update()).set({
+
+                                    number: "${doc.data().number}",
+                            
+                                    readto: "${doc.data().readto}"
+                            
+                                });
+                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();
+                                loadsearch();
+                                '></td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='
+                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").update({readto:readto_update()});
+                                loadsearch();'></input>
+                                </td>
+                                <td><input type="button" value="GO!" onclick='javascript:window.open("https://e-hentai.org/g/${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();loadsearch();'></input></td>
+                                <td>
+                                <input type='button' value='Share' onclick='document.getElementById("we${count}").setAttribute("type","text");document.getElementById("we${count}").select();document.execCommand("copy");document.getElementById("we${count}").setAttribute("type","hidden");alert("複製成功!");'></input>
+                                <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}/'></input>
+                                </td>   
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
 
     firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
 
