@@ -652,10 +652,4 @@ function refreshing() {
 
 }
 
-function reverse() {
-
-
-
-}
-
 window.addEventListener("load", initial, false);
