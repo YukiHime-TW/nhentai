@@ -46,10 +46,41 @@ input{
 
 #page{
     text-align: center;
+
+    position: relative;
+
+    z-index: 1;
 }
 
 #page table{
     margin-left:auto; 
     margin-right:auto;
     text-align: center;
+}
+
+.video-container{
+
+    display: block;
+
+    z-index: 2;
+
+    position: absolute;
+
+    width: 23%;
+
+    height: 43.3%;
+
+    text-align: center;
+}
+ 
+.video-container iframe, .video-container object, .video-container embed {
+
+    display: block;
+    
+    top: 0;left: 0;
+
+    width: 100%;
+
+    height: 60%;
+
 }
