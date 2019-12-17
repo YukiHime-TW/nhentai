@@ -127,7 +127,7 @@ function add() {
 
     document.getElementById("URL").value = "";
 
-    document.getElementById("readto").value = "";
+    document.getElementById("readto").value = "1";
 
     loadsearch();
 
@@ -188,7 +188,7 @@ function add1() {
 
     document.getElementById("URL").value = "";
 
-    document.getElementById("readto").value = "";
+    document.getElementById("readto").value = "1";
 
     loadsearch();
 
