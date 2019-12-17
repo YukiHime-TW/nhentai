@@ -9,9 +9,9 @@ var bulletin = `<div id="bulletin_board">
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
+                        <option value="wnacg">WNACG 紳士倉庫</option>
                         <option value="read_only" disabled>以下Read to僅限輸入數字</option>
                         <option value="nhentai">Nhentai</option>
-                        <option value="wnacg">WNACG 紳士倉庫</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
@@ -53,18 +53,16 @@ function add() {
 
     var read_to = document.getElementById("readto").value;
 
-    if (read_to === "") {
+    if (website === "nhentai") {
 
-        alert("請輸入讀到哪裡\r( Please input Read to )");
+        if (read_to === "") {
 
-        return;
-    }
+            alert("請輸入讀到哪裡\r( Please input Read to )");
 
-    if (website === "nhentai" || website === "wnacg") {
+            return;
+        }
 
-        if (int_check()) {
-
-        } else {
+        if (!int_check()) {
 
             alert("該類別下，Read to只允許正整數");
 
@@ -73,6 +71,7 @@ function add() {
             return;
 
         }
+
     }
 
     var path = `/${user.uid}/${website}/book/`;
@@ -184,9 +183,9 @@ function loadsearch() {
                                 <td><input type="button" value="Edit" onclick='
                                 firebase.firestore().collection("/${user.uid}/nhentai/book/").doc(bookname_update()).set({
 
-                                    number: ${doc.data().number},
+                                    number: "${doc.data().number}",
                             
-                                    readto: ${doc.data().readto}
+                                    readto: "${doc.data().readto}"
                             
                                 });
                                 firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();
@@ -220,9 +219,9 @@ function loadsearch() {
                                 <td>${doc.id}</td>
                                 <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc(bookname_update()).set({
 
-                                    number: ${doc.data().number},
+                                    number: "${doc.data().number}",
                             
-                                    readto: ${doc.data().readto}
+                                    readto: "${doc.data().readto}"
                             
                                 });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
