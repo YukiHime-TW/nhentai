@@ -17,7 +17,7 @@ var withemailverify = `<select id="website">
 var noneemailverify = `只支援看動漫`;
 
 var withemailverified = `<div class=video-container>
-<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; loop; fs; rel; modestbranding;" allowfullscreen></iframe>
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
 <br>
 <span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
 </div>
@@ -35,7 +35,7 @@ ${bulletin}<br>
 </div>`;
 
 var noneemailverifed = `<div class=video-container>
-<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; loop; fs; rel; modestbranding;" allowfullscreen></iframe>
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
 <br>
 <span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
 </div>
