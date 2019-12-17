@@ -454,7 +454,9 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page"><h2>漫畫筆記本</h2>Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page">
+                                                        <h2>漫畫筆記本</h2>
+                                                        Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required /><br><br>
                                                         From: ${withemailverify}<br><br>
@@ -462,7 +464,8 @@ function initial() {
                                                         <a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
+                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+                                                        </div>`;
 
             //https://nhentai.net/language/chinese/
 
@@ -482,7 +485,9 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page"><h2>漫畫筆記本</h2>Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+            document.getElementById("main").innerHTML = `<div id="page">
+                                                        <h2>漫畫筆記本</h2>
+                                                        Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
                                                         Numbers: <input type="text" id="URL" value="" required /><br><br>
                                                         Read to: <input type="text" id="readto" value="" required /><br><br>
                                                         ${noneemailverify}<br><br>
@@ -490,13 +495,15 @@ function initial() {
                                                         <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
-                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
+                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+                                                        </div>`;
 
             loadsearch();
 
         } else {
 
-            document.getElementById("main").innerHTML = `<div id="login"><h2>漫畫筆記本</h2>
+            document.getElementById("main").innerHTML = `<div id="login">
+            <h2>漫畫筆記本</h2>
             帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
             密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
             <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
