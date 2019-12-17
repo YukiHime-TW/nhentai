@@ -9,8 +9,8 @@ var bulletin = `<div id="bulletin_board">
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
-                        <option value="nhentai" hidden>Nhentai</option>
-                        <option value="wnacg" hidden>WNACG 紳士倉庫</option>
+                        <option value="nhentai">Nhentai</option>
+                        <option value="wnacg">WNACG 紳士倉庫</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
@@ -363,11 +363,14 @@ function initial() {
                                                         Read to: <input type="text" id="readto" value="" required /><br><br>
                                                         From: ${withemailverify}<br><br>
                                                         <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
-                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
+                                                        <a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
                                                         ${bulletin}<br>
                                                         <div id="bookmarks"></div><br>
                                                         <input type="button" value="登出 ( Log out )" onclick="logout()"></div>`;
-            //https://nhentai.net/language/chinese/
+            
+                                                        //https://nhentai.net/language/chinese/
+
+                                                            //https://tw.manhuagui.com/
 
             loadsearch();
 
