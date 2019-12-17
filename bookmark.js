@@ -16,6 +16,42 @@ var withemailverify = `<select id="website">
 
 var noneemailverify = `只支援看動漫`;
 
+var withemailverified = `<div class=video-container>
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
+</div>
+<div id="page">
+<h2>漫畫筆記本</h2>
+Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+Numbers: <input type="text" id="URL" value="" required /><br><br>
+Read to: <input type="text" id="readto" value="" required /><br><br>
+From: ${withemailverify}<br><br>
+<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
+<a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
+${bulletin}<br>
+<div id="bookmarks"></div><br>
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+</div>`;
+
+var noneemailverifed = `<div class=video-container>
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
+</div>
+<div id="page">
+<h2>漫畫筆記本</h2>
+Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+Numbers: <input type="text" id="URL" value="" required /><br><br>
+Read to: <input type="text" id="readto" value="" required /><br><br>
+${noneemailverify}<br><br>
+<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
+<a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
+${bulletin}<br>
+<div id="bookmarks"></div><br>
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+</div>`;
+
 var firebaseConfig = {
 
     apiKey: "AIzaSyAZM5RCY5TAiBYwEPselITtTA5Xgy-GPoY",
@@ -454,18 +490,7 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page">
-                                                        <h2>漫畫筆記本</h2>
-                                                        Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
-                                                        Numbers: <input type="text" id="URL" value="" required /><br><br>
-                                                        Read to: <input type="text" id="readto" value="" required /><br><br>
-                                                        From: ${withemailverify}<br><br>
-                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
-                                                        <a href="https://nhentai.net/language/chinese/" target="_blank"><input type="button" id="CHINESE" value="中文本本"></a><br><br>
-                                                        ${bulletin}<br>
-                                                        <div id="bookmarks"></div><br>
-                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
-                                                        </div>`;
+            document.getElementById("main").innerHTML = withemailverified;
 
             //https://nhentai.net/language/chinese/
 
@@ -485,18 +510,7 @@ function initial() {
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `<div id="page">
-                                                        <h2>漫畫筆記本</h2>
-                                                        Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
-                                                        Numbers: <input type="text" id="URL" value="" required /><br><br>
-                                                        Read to: <input type="text" id="readto" value="" required /><br><br>
-                                                        ${noneemailverify}<br><br>
-                                                        <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
-                                                        <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
-                                                        ${bulletin}<br>
-                                                        <div id="bookmarks"></div><br>
-                                                        <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="document.getElementById('bookmarks').innerHTML='';loadsearch();">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
-                                                        </div>`;
+            document.getElementById("main").innerHTML = noneemailverifed;
 
             loadsearch();
 
@@ -518,6 +532,16 @@ function initial() {
 
     });
 
+}
+
+function video_update() {
+    var video_id = document.getElementById("youtubevideo").value;
+
+    var video = document.getElementById("video");
+
+    video.setAttribute("src", `https://www.youtube.com/embed/${video_id}?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1`);
+
+    document.getElementById("youtubevideo").value = "";
 }
 
 function resetpassword() {
