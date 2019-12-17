@@ -6,7 +6,7 @@ var bulletin = `<div id="bulletin_board">
                     Email驗證後才可使用全部內容，否則只可使用限制模式<br>
                     驗證後請重新整理頁面以獲得全部內容的通行權限<br>
                     人類線上最大圖書館(裏)需先登入表站後才可正常進入，敬請見諒<br>
-                    
+                    <a href="https://twitter.com/yukihimenote" target="_blank"><input type="button" value="網站Twitter，任何建議與錯誤回報請往這裡"></a><br>
                 </div>`;
 
 var withemailverify = `<select id="website">
