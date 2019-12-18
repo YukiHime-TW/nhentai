@@ -47,15 +47,35 @@ input{
 #page{
     text-align: center;
 
-    position: relative;
+    position: absolute;
 
     z-index: 1;
+
+    margin: 0px auto;
+
+    margin-left: 20%;
 }
 
 #page table{
     margin-left:auto; 
     margin-right:auto;
     text-align: center;
+}
+
+div{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#twitter{
+    z-index: 2;
+
+    margin-top: 28.2%;
+
+    display: block;
+
+    float: right;
+
 }
 
 .video-container{
