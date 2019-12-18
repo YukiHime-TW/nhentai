@@ -56,7 +56,7 @@ input{
     margin-left: 20%;
 }
 
-@media screen and (max-width: 767px){
+@media only screen and (max-width: 767px){
     #page{
         text-align: center;
 
