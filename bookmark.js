@@ -10,6 +10,17 @@ var bulletin = `<div id="bulletin_board">
                     <a href="https://twitter.com/yukihimenote" target="_blank"><input type="button" value="網站Twitter，任何建議與錯誤回報請往這裡"></a><br>
                 </div>`;
 
+var vid = `<div class="video-container">
+<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=0&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
+<br>
+<span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
+</div>`;
+
+var tweet=`<div id="twitter">
+<a class="twitter-timeline" data-width="300" data-height="900" data-chrome="nofooter" href="https://twitter.com/yukihimenote?ref_src=twsrc%5Etfw">Tweets by yukihimenote</a>
+</script>
+</div>`;
+
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
@@ -22,11 +33,7 @@ var withemailverify = `<select id="website">
 
 var noneemailverify = `只支援看動漫`;
 
-var withemailverified = `<div class=video-container>
-<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=0&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-<br>
-<span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
-</div>
+var withemailverified = `${vid}${tweet}
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
@@ -40,11 +47,7 @@ ${bulletin}<br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
 </div>`;
 
-var noneemailverifed = `<div class=video-container>
-<iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=1&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-<br>
-<span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
-</div>
+var noneemailverifed = `${vid}${tweet}
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
@@ -57,6 +60,18 @@ ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
 </div>`;
+
+var log=`<div id="login">
+<h2>漫畫筆記本</h2>
+帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
+密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
+<input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
+<input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;
+<input type="submit" value="重設密碼" onclick="resetpassword()" id="resetPW"><br><br>
+需<span id="highlighting">註冊</span>後才可使用<br>
+只需提供電子郵件與密碼即可註冊<br><br>
+<span id='highlighting'>請注意</span><br>
+需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`;
 
 var firebaseConfig = {
 
@@ -687,36 +702,23 @@ function initial() {
 
     firebase.auth().onAuthStateChanged(function (user) {
 
-
         if (user && user.emailVerified) {
 
             var email = user.email;
-
-            document.getElementById("sign").disabled = true;
-
-            document.getElementById("newer").disabled = true;
-
-            document.getElementById("resetPW").disabled = true;
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = withemailverified;
 
-            //https://nhentai.net/language/chinese/
-
-            //https://tw.manhuagui.com/
-
             loadsearch();
+
+            twttr.widgets.load(
+                document.getElementById("twitter")
+            );
 
         } else if (user) {
 
             var email = user.email;
-
-            document.getElementById("sign").disabled = true;
-
-            document.getElementById("newer").disabled = true;
-
-            document.getElementById("resetPW").disabled = true;
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
@@ -726,17 +728,7 @@ function initial() {
 
         } else {
 
-            document.getElementById("main").innerHTML = `<div id="login">
-            <h2>漫畫筆記本</h2>
-            帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
-            密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
-            <input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
-            <input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;
-            <input type="submit" value="重設密碼" onclick="resetpassword()" id="resetPW"><br><br>
-            需<span id="highlighting">註冊</span>後才可使用<br>
-            只需提供電子郵件與密碼即可註冊<br><br>
-            <span id='highlighting'>請注意</span><br>
-            需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`;
+            document.getElementById("main").innerHTML = log;
 
         }
 
