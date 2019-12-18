@@ -44,7 +44,7 @@ From: ${withemailverify}<br><br>
 <a href="https://e-hentai.org/?f_cats=767" target="_blank"><input type="button" id="CHINESE" value="人類最大線上圖書館(表)"></a><br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
-<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
 </div>`;
 
 var noneemailverifed = `${vid}${tweet}
@@ -58,7 +58,7 @@ ${noneemailverify}<br><br>
 <a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
-<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()">
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
 </div>`;
 
 var log=`<div id="login">
