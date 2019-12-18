@@ -728,7 +728,7 @@ function initial() {
 
     firebase.auth().onAuthStateChanged(function (user) {
 
-        if (user && user.emailVerified && innerWidth > 400) {
+        if (user && user.emailVerified && outerWidth > 400) {
 
             var email = user.email;
 
@@ -742,7 +742,7 @@ function initial() {
                 document.getElementById("twitter")
             );
 
-        } else if (user && innerWidth > 400) {
+        } else if (user && outerWidth > 400) {
 
             var email = user.email;
 
@@ -764,6 +764,8 @@ function initial() {
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
 
+            loadsearch();
+
         } else if (user) {
 
             var email = user.email;
@@ -771,6 +773,8 @@ function initial() {
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
+
+            loadsearch();
 
         } else {
 
