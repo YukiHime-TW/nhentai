@@ -56,6 +56,12 @@ input{
     margin-left: 20%;
 }
 
+#page table{
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+}
+
 @media only screen and (max-width: 767px){
     #page{
         text-align: center;
@@ -68,12 +74,12 @@ input{
 
         margin-left: unset;
     }
-}
 
-#page table{
-    margin-left:auto; 
-    margin-right:auto;
-    text-align: center;
+    #page table{
+        margin-left:unset; 
+        margin-right:unset;
+        text-align: center;
+    }
 }
 
 div{
