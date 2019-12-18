@@ -56,6 +56,20 @@ input{
     margin-left: 20%;
 }
 
+@media screen and (max-width: 767px){
+    #page{
+        text-align: center;
+
+        position: unset;
+
+        z-index: 1;
+
+        margin: 0px auto;
+
+        margin-left: unset;
+    }
+}
+
 #page table{
     margin-left:auto; 
     margin-right:auto;
