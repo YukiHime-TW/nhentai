@@ -728,7 +728,7 @@ function initial() {
 
     firebase.auth().onAuthStateChanged(function (user) {
 
-        if (user && user.emailVerified && outerWidth > 400) {
+        if (user && user.emailVerified && outerWidth > 767) {
 
             var email = user.email;
 
@@ -742,7 +742,7 @@ function initial() {
                 document.getElementById("twitter")
             );
 
-        } else if (user && outerWidth > 400) {
+        } else if (user && outerWidth > 767) {
 
             var email = user.email;
 
