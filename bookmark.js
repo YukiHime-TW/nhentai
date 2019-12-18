@@ -17,7 +17,7 @@ var vid = `<div class="video-container">
 </div>`;
 
 var tweet = `<div id="twitter">
-<a class="twitter-timeline" data-width="300" data-height="900" data-chrome="nofooter" href="https://twitter.com/yukihimenote?ref_src=twsrc%5Etfw">Tweets by yukihimenote</a>
+<a class="twitter-timeline" data-width="300" data-height="900" data-tweet-limit="5" data-chrome="nofooter" href="https://twitter.com/yukihimenote?ref_src=twsrc%5Etfw">Tweets by yukihimenote</a>
 </script>
 </div>`;
 
