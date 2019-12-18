@@ -16,7 +16,7 @@ var vid = `<div class="video-container">
 <span id="youtube_input">Youtube 影片ID<br><input type="text" value="" id="youtubevideo" placeholder="https://www.youtube.com/watch?v=&Prime;影片ID&Prime;" style="width:80%;"></span>&nbsp;<input type="submit" value="play" onclick="video_update()">
 </div>`;
 
-var tweet=`<div id="twitter">
+var tweet = `<div id="twitter">
 <a class="twitter-timeline" data-width="300" data-height="900" data-chrome="nofooter" href="https://twitter.com/yukihimenote?ref_src=twsrc%5Etfw">Tweets by yukihimenote</a>
 </script>
 </div>`;
@@ -33,7 +33,7 @@ var withemailverify = `<select id="website">
 
 var noneemailverify = `只支援看動漫`;
 
-var withemailverified = `${vid}${tweet}
+var withemailverified_PC = `${vid}${tweet}
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
@@ -47,7 +47,20 @@ ${bulletin}<br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
 </div>`;
 
-var noneemailverifed = `${vid}${tweet}
+var withemailverified_Phone = `<div id="page">
+<h2>漫畫筆記本</h2>
+Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+ID: <input type="text" id="URL" value="" required /><br><br>
+Read to: <input type="text" id="readto" value="1" required /><br><br>
+From: ${withemailverify}<br><br>
+<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
+<a href="https://e-hentai.org/?f_cats=767" target="_blank"><input type="button" id="CHINESE" value="人類最大線上圖書館(表)"></a><br><br>
+${bulletin}<br>
+<div id="bookmarks"></div><br>
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
+</div>`;
+
+var noneemailverifed_PC = `${vid}${tweet}
 <div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
@@ -61,7 +74,20 @@ ${bulletin}<br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
 </div>`;
 
-var log=`<div id="login">
+var noneemailverifed_Phone = `<div id="page">
+<h2>漫畫筆記本</h2>
+Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+ID: <input type="text" id="URL" value="" required /><br><br>
+Read to: <input type="text" id="readto" value="1" required /><br><br>
+${noneemailverify}<br><br>
+<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
+<a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
+${bulletin}<br>
+<div id="bookmarks"></div><br>
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
+</div>`;
+
+var log = `<div id="login">
 <h2>漫畫筆記本</h2>
 帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
 密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
@@ -702,13 +728,13 @@ function initial() {
 
     firebase.auth().onAuthStateChanged(function (user) {
 
-        if (user && user.emailVerified) {
+        if (user && user.emailVerified && innerWidth > 400) {
 
             var email = user.email;
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = withemailverified;
+            document.getElementById("main").innerHTML = withemailverified_PC;
 
             loadsearch();
 
@@ -716,15 +742,35 @@ function initial() {
                 document.getElementById("twitter")
             );
 
+        } else if (user && innerWidth > 400) {
+
+            var email = user.email;
+
+            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+
+            document.getElementById("main").innerHTML = noneemailverifed_PC;
+
+            loadsearch();
+
+            twttr.widgets.load(
+                document.getElementById("twitter")
+            );
+
+        } else if (user && user.emailVerified) {
+
+            var email = user.email;
+
+            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+
+            document.getElementById("main").innerHTML = withemailverified_Phone;
+
         } else if (user) {
 
             var email = user.email;
 
             alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = noneemailverifed;
-
-            loadsearch();
+            document.getElementById("main").innerHTML = withemailverified_Phone;
 
         } else {
 
