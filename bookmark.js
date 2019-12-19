@@ -33,6 +33,10 @@ var withemailverify = `<select id="website">
 
 var noneemailverify = `只支援看動漫`;
 
+var bootstrap_JS = `<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>`;
+
 var withemailverified_PC = `${vid}${tweet}
 <center><div id="page">
 <h2>漫畫筆記本</h2>
@@ -89,13 +93,19 @@ ${bulletin}<br>
 
 var log = `<div id="login">
 <h2>漫畫筆記本</h2>
-帳號: <input type="text" id="EM" placeholder="&nbsp;Your Email" required　style="display:inline;width:auto;"><br><br>
-密碼: <input type="password" id="PW" placeholder="&nbsp;Password" style="display:inline;"><br><br>
-<input type="submit" value="註冊" onclick="newuser()" id="newer">&nbsp;
-<input type="submit" value="登入" onclick="signin()" id="sign">&nbsp;
-<input type="submit" value="重設密碼" onclick="resetpassword()" id="resetPW"><br><br>
+<h4>請登入</h4>
+<div class="form-group">
+<input type="email" id="EM" class="form-control" placeholder="Your Email" required autofocus>
+<input type="password" id="PW" class="form-control" placeholder="Password" required>
+</div>
+<input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" onclick="signin()">
+<div class="btn-group btn-block">
+<input type="submit" class="btn btn-lg btn-primary btn-light" value="&nbsp;&nbsp;&nbsp;&nbsp;註冊&nbsp&nbsp;&nbsp;" onclick="newuser()">
+<input type="submit" class="btn btn-lg btn-primary btn-light" value="重設密碼" onclick="resetpassword()">
+</div>
+<br><br>
 需<span id="highlighting">註冊</span>後才可使用<br>
-只需提供電子郵件與密碼即可註冊<br><br>
+只需提供電子郵件與密碼即可註冊<br>
 <span id='highlighting'>請注意</span><br>
 需進行<span id="highlighting">Email驗證</span>後才可使用全部內容<br></div>`;
 
@@ -732,7 +742,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = withemailverified_PC;
+            document.getElementById("main").innerHTML = `${withemailverified_PC}${bootstrap_JS}`;
 
             loadsearch();
 
