@@ -15,19 +15,17 @@ table, td, th{
 
 #login{
     width: 300px;
-    height: 300px;
+    height: 320px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left:-150px;
     margin-top:-150px;
-    background-color: #FFC78E;
-    border-radius: 15px;
     text-align: center;
 }
 
 #highlighting{
-    color: #7373B9;
+    color: 	#7700BB;
     font-weight: bolder;
 }
 
@@ -38,10 +36,8 @@ table, td, th{
 
 #main{
     background-color: lightblue;
-}
 
-input{
-    border-radius: 15px;
+    font-family: Microsoft JhengHei;
 }
 
 #page{
@@ -98,7 +94,6 @@ div{
     display: block;
 
     float: right;
-
 }
 
 .video-container{
