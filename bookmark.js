@@ -1,4 +1,4 @@
-var search_list = "<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>";
+var search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
 
 var bulletin = `<div id="bulletin_board">
                     <span id="topic">&spades;公告&spades;</span><br>
@@ -34,7 +34,7 @@ var withemailverify = `<select id="website">
 var noneemailverify = `只支援看動漫`;
 
 var withemailverified_PC = `${vid}${tweet}
-<div id="page">
+<center><div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
 ID: <input type="text" id="URL" value="" required /><br><br>
@@ -45,9 +45,9 @@ From: ${withemailverify}<br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
-</div>`;
+</div></center>`;
 
-var withemailverified_Phone = `<div id="page">
+var withemailverified_Phone = `<center><div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
 ID: <input type="text" id="URL" value="" required /><br><br>
@@ -58,10 +58,10 @@ From: ${withemailverify}<br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
-</div>`;
+</div></center>`;
 
 var noneemailverifed_PC = `${vid}${tweet}
-<div id="page">
+<center><div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
 ID: <input type="text" id="URL" value="" required /><br><br>
@@ -72,9 +72,9 @@ ${noneemailverify}<br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
-</div>`;
+</div></center>`;
 
-var noneemailverifed_Phone = `<div id="page">
+var noneemailverifed_Phone = `<center><div id="page">
 <h2>漫畫筆記本</h2>
 Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
 ID: <input type="text" id="URL" value="" required /><br><br>
@@ -85,7 +85,7 @@ ${noneemailverify}<br><br>
 ${bulletin}<br>
 <div id="bookmarks"></div><br>
 <input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
-</div>`;
+</div></center>`;
 
 var log = `<div id="login">
 <h2>漫畫筆記本</h2>
@@ -626,9 +626,9 @@ function bookname_update() {
 
 function newuser() {
 
-    var account = document.getElementById("EM").value;
+    var account = window.prompt("請輸入您的電子郵件信箱\r(Please enter your Email address)");
 
-    var password = document.getElementById("PW").value;
+    var password = window.prompt("請輸入您的密碼\r(Please enter your Email address)");
 
     firebase.auth().createUserWithEmailAndPassword(account, password).then(function () {
 
@@ -651,8 +651,6 @@ function newuser() {
         if (errorCode == "auth/weak-password") {
 
             alert("密碼強度過低，請重新輸入\r( The password is too weak, please change one )");
-
-            document.getElementById("PW").value = "";
 
         } else {
 
@@ -710,7 +708,7 @@ function signin() {
 
 function logout() {
 
-    if (confirm("你確定要登出嗎?\r( Are you sure to log out? )")) {
+    if (confirm("您確定要登出嗎?\r( Are you sure to log out? )")) {
 
         firebase.auth().signOut();
 
@@ -732,7 +730,7 @@ function initial() {
 
             var email = user.email;
 
-            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = withemailverified_PC;
 
@@ -746,7 +744,7 @@ function initial() {
 
             var email = user.email;
 
-            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = noneemailverifed_PC;
 
@@ -760,7 +758,7 @@ function initial() {
 
             var email = user.email;
 
-            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
 
@@ -770,7 +768,7 @@ function initial() {
 
             var email = user.email;
 
-            alert(`你以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
+            alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
 
@@ -798,7 +796,7 @@ function video_update() {
 
 function resetpassword() {
 
-    var email = window.prompt("請輸入你的電子郵件信箱 ( Your email )");
+    var email = window.prompt("請輸入您的電子郵件信箱 ( Your email )");
 
     firebase.auth().sendPasswordResetEmail(email).then(function () {
 
