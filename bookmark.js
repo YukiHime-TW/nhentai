@@ -245,14 +245,14 @@ function loadsearch() {
     search_list = `<table>
                     <thead>
                         <tr>
-                            <th>From</th>
-                            <th>Book Name</th>
-                            <th>Edit Book Name</th>
-                            <th>Read to</th>
-                            <th>Edit Read to</th>
-                            <th>Link</th>
-                            <th>Delete</th>
-                            <th>Share</th>
+                            <th>網站</th>
+                            <th>書名</th>
+                            <th>更新書名</th>
+                            <th>頁碼</th>
+                            <th>更新頁碼</th>
+                            <th>連結</th>
+                            <th>刪除</th>
+                            <th>分享</th>
                         </tr>
                     </thead>`;
 
