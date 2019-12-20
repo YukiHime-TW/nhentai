@@ -41,15 +41,11 @@ table, td, th{
 }
 
 #page{
-    text-align: center;
 
     z-index: 1;
 
     margin: 0px auto;
-
-    margin-left: 20%;
-
-    margin-right: 20%;
+   
 }
 
 #page table{
@@ -87,13 +83,11 @@ div{
 }
 
 #twitter{
-    z-index: 2;
-
-    margin-top: 27%;
+    z-index: 1;
 
     display: block;
 
-    float: right;
+    
 }
 
 .video-container{
@@ -102,11 +96,9 @@ div{
 
     z-index: 2;
 
-    position: absolute;
+    position: relative;
 
-    width: 23%;
-
-    height: 43.3%;
+    height: auto;
 
     text-align: center;
 }
