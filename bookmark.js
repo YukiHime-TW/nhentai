@@ -92,7 +92,7 @@ var withemailverified_PC = `<div id="page">
     <div id="bookmarks"></div><br>
     </div>
     
-    <div class="col-md-8">
+    <div class="col-md-4">
     ${vid}<br> 
     ${tweet}
     </div>
@@ -150,7 +150,7 @@ var withemailverified_Phone = `<div id="page">
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">漫畫筆記本</h1><br>
+    <h1 class="display-4">漫畫筆記本</h1><br>
     <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
@@ -162,7 +162,7 @@ var withemailverified_Phone = `<div id="page">
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
     <div id="bookmarks"></div><br>
     </div>
