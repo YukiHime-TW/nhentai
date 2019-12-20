@@ -173,7 +173,10 @@ var withemailverified_Phone = `<div id="page">
 </main>
 
 <footer class="container">
-<p>© Company 2017-2018</p>
+<center><span><a href ="mailto:majiku6@gmail.com">©站長信箱</a></span>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <span><a href ="mailto:p881021@gmail.com">@副站長信箱</a></span></center>
+        <br>
 </footer>
 
 </div>`;
