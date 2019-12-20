@@ -648,7 +648,7 @@ function delete_wnacg(user, doc) {
 
 function go_wnacg(doc) {
 
-    window.open(`https://dm5.io/${doc}/`);
+    window.open(`https://m.wnacg.org/photos-slide-aid-${doc}.html`);
 
 }
 
