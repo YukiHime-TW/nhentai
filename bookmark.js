@@ -72,6 +72,7 @@ var withemailverified_PC = `<div id="page">
 
 <main role="main">
 
+<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3">漫畫筆記本</h1><br>
@@ -79,6 +80,78 @@ var withemailverified_PC = `<div id="page">
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
     來源網站 : ${withemailverify}<br><br></p>
+    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
+    </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-8">
+    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
+    <div id="bookmarks"></div><br>
+    </div>
+    
+    <div class="col-md-4">
+    ${vid}<br> 
+    ${tweet}
+    </div>
+  </div>
+
+  <hr>
+
+</div> <!-- /container -->
+
+</main>
+
+<footer class="container">
+<center><span><a href ="mailto:majiku6@gmail.com">©站長信箱</a></span>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <span><a href ="mailto:p881021@gmail.com">@副站長信箱</a></span></center>
+</footer>
+
+</div>`;
+
+var withemailverified_Phone = `${vid}${tweet}<center><div id="page">
+<h2>漫畫筆記本</h2>
+Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
+ID: <input type="text" id="URL" value="" required /><br><br>
+Read to: <input type="text" id="readto" value="1" required /><br><br>
+From: ${withemailverify}<br><br>
+<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">&nbsp;
+<a href="https://e-hentai.org/?f_cats=767" target="_blank"><input type="button" id="CHINESE" value="人類最大線上圖書館(表)"></a><br><br>
+${bulletin}<br>
+<div id="bookmarks"></div><br>
+<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
+</div></center>`;
+
+var noneemailverifed_PC = `<div id="page">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> 
+<div class="collapse navbar-collapse " id="LIST" style>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
+    </form>
+</div>
+</nav>
+
+<main role="main">
+
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">漫畫筆記本</h1><br>
+    <h4 id="highlighting">此帳號尚未驗證 故只可使用部分功能</h4><br>
+    <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
+    ID : <input type="text" id="URL" value="" required /><br><br>
+    閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
+    來源網站 : 看動漫<br><br></p>
     <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
     </div>
 </div>
@@ -110,87 +183,6 @@ var withemailverified_PC = `<div id="page">
 </footer>
 
 </div>`;
-
-var withemailverified_Phone = `<div id="page">
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-      </button> 
-<div class="collapse" id="LIST">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="https://dm5.io/" target="_blank">動漫屋</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://m.wnacg.org/" target="_blank">紳士倉庫</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://e-hentai.org/?f_cats=767" target="_blank">E站(表)</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://nhentai.net/" target="_blank">Nhentai</a>
-    </li>
-  </ul>
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
-    </form>
-</div>
-</nav>
-
-<main role="main">
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="container">
-    <h1 class="display-3">漫畫筆記本</h1><br>
-    <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
-    ID : <input type="text" id="URL" value="" required /><br><br>
-    閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
-    來源網站 : ${withemailverify}<br><br></p>
-    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
-    </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <div id="bookmarks"></div><br>
-    </div>
-  </div>
-
-  <hr>
-
-</div> <!-- /container -->
-
-</main>
-
-<footer class="container">
-<p>© Company 2017-2018</p>
-</footer>
-
-</div>`;
-
-var noneemailverifed_PC = `${vid}${tweet}
-<center><div id="page">
-<h2>漫畫筆記本</h2>
-Book name OR Your own tag: <input type="text" id="name" value="" required /><br><br>
-ID: <input type="text" id="URL" value="" required /><br><br>
-Read to: <input type="text" id="readto" value="1" required /><br><br>
-${noneemailverify}<br><br>
-<input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">&nbsp;
-<a href="https://tw.manhuagui.com/" target="_blank"><input type="button" id="CHINESE" value="看動漫首頁"></a><br><br>
-${bulletin}<br>
-<div id="bookmarks"></div><br>
-<input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()">&nbsp;<input type="button" value="登出 ( Log out )" onclick="logout()"><br><br>
-</div></center>`;
 
 var noneemailverifed_Phone = `<center><div id="page">
 <h2>漫畫筆記本</h2>
@@ -870,7 +862,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `${noneemailverifed_PC}${bootstrap_JS}`;
+            document.getElementById("main").innerHTML = noneemailverifed_PC;
 
             loadsearch();
 
@@ -884,7 +876,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `${withemailverified_Phone}${bootstrap_JS}`;
+            document.getElementById("main").innerHTML = withemailverified_Phone;
 
             loadsearch();
 
@@ -894,7 +886,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `${noneemailverified_Phone}${bootstrap_JS}`;
+            document.getElementById("main").innerHTML = withemailverified_Phone;
 
             loadsearch();
 
