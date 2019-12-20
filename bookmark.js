@@ -25,8 +25,8 @@ var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
                         <option value="wnacg">WNACG 紳士倉庫</option>
-                        <option value="ehentai">人類線上最大圖書館( /g/ 以後的所有東西 )(表)</option>
-                        <option value="exhentai">人類線上最大圖書館( /g/ 以後的所有東西 )(裏)</option>
+                        <option value="ehentai">E站(表)[ /g/ 以後的所有東西 ]</option>
+                        <option value="exhentai">熊貓[ /g/ 以後的所有東西 ]</option>
                         <option value="read_only" disabled>以下Read to僅限輸入數字</option>
                         <option value="nhentai">Nhentai</option>
                         </select>`;
@@ -92,7 +92,7 @@ var withemailverified_PC = `<div id="page">
     <div id="bookmarks"></div><br>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-8">
     ${vid}<br> 
     ${tweet}
     </div>
