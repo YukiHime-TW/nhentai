@@ -75,7 +75,7 @@ var withemailverified_PC = `<div id="page">
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">漫畫筆記本</h1><br>
+    <h1 class="display-4">漫畫筆記本</h1><br>
     <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
@@ -201,7 +201,7 @@ var noneemailverifed_PC = `<div id="page">
 
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">漫畫筆記本</h1><br>
+    <h1 class="display-4">漫畫筆記本</h1><br>
     <h4 id="highlighting">此帳號尚未驗證 故只可使用部分功能</h4><br>
     <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
     ID : <input type="text" id="URL" value="" required /><br><br>
@@ -260,7 +260,7 @@ var noneemailverifed_Phone = `<div id="page">
 
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">漫畫筆記本</h1><br>
+    <h1 class="display-4">漫畫筆記本</h1><br>
     <h4 id="highlighting">此帳號尚未驗證 故只可使用部分功能</h4><br>
     <p>自訂名稱 : <input type="text" id="name" value="" required /><br><br>
     ID : <input type="text" id="URL" value="" required /><br><br>
