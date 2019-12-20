@@ -1,15 +1,5 @@
 var search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
 
-var bulletin = `<div id="bulletin_board">
-                    <span id="topic">&spades;公告&spades;</span><br>
-                    網站已全面更新<br>
-                    Email驗證後才可使用全部內容，否則只可使用限制模式<br>
-                    驗證後請重新整理頁面以獲得全部內容的通行權限<br>
-                    人類線上最大圖書館(裏)需先登入表站後才可正常進入，敬請見諒<br>
-                    其他更新請往Twitter查看<br>
-                    <a href="https://twitter.com/yukihimenote" target="_blank"><input type="button" value="網站Twitter，任何建議與錯誤回報請往這裡"></a><br>
-                </div>`;
-
 var vid = `<div class="video-container">
 <iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=0&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
 <br>
@@ -163,7 +153,7 @@ var withemailverified_Phone = `<div id="page">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-12">
-    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
+    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
     <div id="bookmarks"></div><br>
     </div>
   <hr>
@@ -273,7 +263,7 @@ var noneemailverifed_Phone = `<div id="page">
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
+    <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
     <div id="bookmarks"></div><br>
     </div>
   <hr>
@@ -662,6 +652,135 @@ function loadsearch() {
 
 }
 
+function loadsearch_Phone() {
+
+    var user = firebase.auth().currentUser;
+
+    search_list = `<table>
+                    <thead>
+                        <tr>
+                            <th>書名</th>
+                            <th>頁碼</th>
+                            <th>更新頁碼</th>
+                            <th>連結</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>`;
+
+    firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");'></input></td> 
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/exhentai/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");'></input></td>  
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_nhentai(${doc.data().number},${doc.data().readto});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>   
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_wnacg(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_comichouse(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
+    firebase.firestore().collection(`/${user.uid}/看動漫/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_watchcomic(${doc.data().number});'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
+                            </tr>`;
+
+            count++;
+
+        });
+
+        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
+
+        count = 0;
+
+    });
+
+}
+
 function edit_readto_ehentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -976,7 +1095,7 @@ function initial() {
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
 
-            loadsearch();
+            loadsearch_Phone();
 
         } else if (user) {
 
@@ -986,7 +1105,7 @@ function initial() {
 
             document.getElementById("main").innerHTML = withemailverified_Phone;
 
-            loadsearch();
+            loadsearch_Phone();
 
         } else {
 
@@ -1031,6 +1150,18 @@ function refreshing() {
     document.getElementById('refresh').disabled = true;
 
     loadsearch();
+
+    setTimeout("document.getElementById('refresh').disabled=false;", 3000);
+
+}
+
+function refreshing_Phone() {
+
+    document.getElementById('bookmarks').innerHTML = '';
+
+    document.getElementById('refresh').disabled = true;
+
+    loadsearch_Phone();
 
     setTimeout("document.getElementById('refresh').disabled=false;", 3000);
 
