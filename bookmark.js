@@ -23,41 +23,66 @@ var withemailverify = `<select id="website">
 
 var noneemailverify = `只支援看動漫`;
 
-var bootstrap_JS = `<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>`;
-
 var withemailverified_PC = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
         <span class="navbar-toggler-icon"></span>
-      </button> 
-<div class="collapse navbar-collapse " id="LIST" style>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="https://dm5.io/" target="_blank">動漫屋</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://m.wnacg.org/" target="_blank">紳士倉庫</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://e-hentai.org/?f_cats=767" target="_blank">E站(表)</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="https://nhentai.net/" target="_blank">Nhentai</a>
-    </li>
-  </ul>
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
-    </form>
-</div>
+        
+    </button> 
+    
+    <div class="collapse navbar-collapse " id="navbarSupportedContent" style>
+
+        <ul class="nav navbar-nav mr-auto">
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="https://dm5.io/" target="_blank">動漫屋</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link " href="https://m.wnacg.org/" target="_blank">紳士倉庫</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link " href="https://e-hentai.org/?f_cats=767" target="_blank">E站(表)</a>
+
+            </li>
+    
+            <li class="nav-item">
+
+                <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link " href="https://nhentai.net/" target="_blank">Nhentai</a>
+            </li>
+
+        </ul>
+    
+        <form class="form-inline my-2 my-lg-0">
+
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
+
+        </form>
+
+    </div>
+
 </nav>
 
 <main role="main">
@@ -110,7 +135,7 @@ var withemailverified_Phone = `<div id="page">
         <span class="navbar-toggler-icon"></span>
       </button> 
 <div class="collapse navbar-collapse " id="LIST" style>
-  <ul class="navbar-nav mr-auto">
+  <ul class="nav navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
     </li>
@@ -179,7 +204,7 @@ var noneemailverifed_PC = `<div id="page">
         <span class="navbar-toggler-icon"></span>
       </button> 
 <div class="collapse navbar-collapse " id="LIST" style>
-  <ul class="navbar-nav mr-auto">
+  <ul class="nav navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
   </ul>
@@ -238,7 +263,7 @@ var noneemailverifed_Phone = `<div id="page">
         <span class="navbar-toggler-icon"></span>
       </button> 
 <div class="collapse navbar-collapse " id="LIST" style>
-  <ul class="navbar-nav mr-auto">
+  <ul class="nav navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
   </ul>
@@ -287,8 +312,8 @@ var log = `<div id="login">
 <h2>漫畫筆記本</h2>
 <h4>請登入</h4>
 <div class="form-group">
-<input type="email" id="EM" class="form-control" placeholder="Your Email" required autofocus>
-<input type="password" id="PW" class="form-control" placeholder="Password" required>
+<input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
+<input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
 </div>
 <input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" onclick="signin()">
 <div class="btn-group btn-block">
@@ -546,7 +571,7 @@ function loadsearch() {
                                 '></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_nhentai(${doc.data().number},${doc.data().readto});'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_nhentai("${doc.data().number}",${doc.data().readto});'></input></td>
                                 <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>
@@ -576,7 +601,7 @@ function loadsearch() {
                                 });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_wnacg(${doc.data().number});'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_wnacg("${doc.data().number}");'></input></td>
                                 <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>
@@ -606,7 +631,7 @@ function loadsearch() {
                                 });firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_comichouse(${doc.data().number});'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_comichouse("${doc.data().number}");'></input></td>
                                 <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>                                
@@ -634,7 +659,7 @@ function loadsearch() {
                                 });firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_watchcomic(${doc.data().number});'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_watchcomic("${doc.data().number}");'></input></td>
                                 <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
                                 <td>
                                     <input type='button' value='Share' onclick='sharing(${count})'></input>
@@ -1031,13 +1056,9 @@ function signin() {
 
             console.log(error);
 
-            document.getElementById("sign").disabled = false;
-
         });
 
     }
-
-    document.getElementById("sign").disabled = true;
 
 }
 
@@ -1067,7 +1088,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = `${withemailverified_PC}${bootstrap_JS}`;
+            document.getElementById("main").innerHTML = `${withemailverified_PC}`;
 
             loadsearch();
 
@@ -1081,7 +1102,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = noneemailverifed_PC;
+            document.getElementById("main").innerHTML = `${noneemailverifed_PC}`;
 
             loadsearch();
 
@@ -1095,7 +1116,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = withemailverified_Phone;
+            document.getElementById("main").innerHTML = `${withemailverified_Phone}`;
 
             loadsearch_Phone();
 
@@ -1105,7 +1126,7 @@ function initial() {
 
             alert(`您以 ${email} 的身分登入了\r( You have been logged in as ${email}!)`);
 
-            document.getElementById("main").innerHTML = withemailverified_Phone;
+            document.getElementById("main").innerHTML = `${noneemailverifed_Phone}`;
 
             loadsearch_Phone();
 
