@@ -114,10 +114,10 @@ var withemailverified_PC = `<div id="page">
 var withemailverified_Phone = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 <a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
       </button> 
-<div class="collapse navbar-collapse " id="LIST" style>
+<div class="collapse" id="LIST">
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
