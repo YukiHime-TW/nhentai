@@ -162,7 +162,7 @@ var withemailverified_Phone = `<div id="page">
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
     <div id="bookmarks"></div><br>
     </div>
