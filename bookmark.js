@@ -187,7 +187,7 @@ var withemailverified_Phone = `<div id="page">
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
     來源網站 : ${withemailverify}<br><br></p>
-    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
+    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add_Phone()">
     </div>
 </div>
 
@@ -299,7 +299,7 @@ var noneemailverifed_Phone = `<div id="page">
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
     來源網站 : 看動漫<br><br></p>
-    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
+    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add_Phone()">
     </div>
 </div>
 
@@ -487,6 +487,67 @@ function add1() {
 
 }
 
+function add_Phone() {
+
+    var user = firebase.auth().currentUser;
+
+    if (document.getElementById("name").value === "") {
+
+        alert("請輸入標籤名稱");
+
+        return;
+
+    }
+
+    var name = document.getElementById("name").value;
+
+    var Url = document.getElementById("URL").value;
+
+    var website = document.getElementById("website").value;
+
+    var read_to = document.getElementById("readto").value;
+
+    if (website === "nhentai") {
+
+        if (read_to === "") {
+
+            alert("請輸入讀到哪裡\r( Please input Read to )");
+
+            return;
+        }
+
+        if (!int_check()) {
+
+            alert("該類別下，Read to只允許正整數");
+
+            document.getElementById("readto").value = "";
+
+            return;
+
+        }
+
+    }
+
+    var path = `/${user.uid}/${website}/book/`;
+
+    firebase.firestore().collection(`${path}`).doc(`${name}`).set({
+
+        number: `${Url}`,
+
+        readto: `${read_to}`
+
+    });
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("URL").value = "";
+
+    document.getElementById("readto").value = "1";
+
+    loadsearch_Phone();
+
+}
+
 function loadsearch() {
 
     var user = firebase.auth().currentUser;
@@ -512,11 +573,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>E-Hentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_ehentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_ehentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}'></input>
@@ -536,11 +597,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>EXHentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_exhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_exhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                     <input type='button' value='Share' onclick='sharing(${count})'></input>
                                     <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}'></input>
@@ -560,11 +621,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>Nhentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_nhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_nhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_nhentai("${doc.data().number}",${doc.data().readto});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/'></input>
@@ -584,11 +645,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>WNACG 紳士倉庫</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_wnacg("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_wnacg("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_wnacg("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>
                                 <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html'></input>
@@ -608,11 +669,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>動漫屋</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_comichouse("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_comichouse("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_comichouse("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                 <input type='button' value='Share' onclick='sharing(${count})'></input>                                
                                 <input type="hidden" id='we${count}' value='https://dm5.io/${doc.data().number}/'></input>
@@ -632,11 +693,11 @@ function loadsearch() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>看動漫</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='edit_bookname_watchcomic("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_watchcomic("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_watchcomic("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");loadsearch();'></input></td>
                                 <td>
                                     <input type='button' value='Share' onclick='sharing(${count})'></input>
                                     <input type="hidden" id='we${count}' value='https://tw.manhuagui.com/comic/${doc.data().number}/' ></input>
@@ -684,9 +745,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");'></input></td> 
+                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td> 
                             </tr>`;
 
             count++;
@@ -702,9 +763,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");'></input></td>  
+                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td>  
                             </tr>`;
 
             count++;
@@ -720,9 +781,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_nhentai(${doc.data().number},${doc.data().readto});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>   
+                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td>   
                             </tr>`;
 
             count++;
@@ -738,9 +799,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_wnacg(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td>
                             </tr>`;
 
             count++;
@@ -756,9 +817,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_comichouse(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td>
                             </tr>`;
 
             count++;
@@ -774,9 +835,9 @@ function loadsearch_Phone() {
             search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch_Phone();'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_watchcomic(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");loadsearch_Phone();'></input></td>
                             </tr>`;
 
             count++;
@@ -804,22 +865,17 @@ function edit_bookname_ehentai(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_ehentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
 
-    loadsearch();
-
 }
 
 function delete_ehentai(user, doc) {
 
     firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${doc}`).delete();
-
-    loadsearch();
 
 }
 
@@ -835,22 +891,17 @@ function edit_bookname_exhentai(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_exhentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
 
-    loadsearch();
-
 }
 
 function delete_exhentai(user, doc) {
 
     firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).delete();
-
-    loadsearch();
 
 }
 
@@ -866,22 +917,17 @@ function edit_bookname_nhentai(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_nhentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
 
-    loadsearch();
-
 }
 
 function delete_nhentai(user, doc) {
 
     firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${doc}`).delete();
-
-    loadsearch();
 
 }
 
@@ -897,22 +943,17 @@ function edit_bookname_wnacg(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_wnacg(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
 
-    loadsearch();
-
 }
 
 function delete_wnacg(user, doc) {
 
     firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${doc}`).delete();
-
-    loadsearch();
 
 }
 
@@ -928,22 +969,17 @@ function edit_bookname_comichouse(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_comichouse(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
 
-    loadsearch();
-
 }
 
 function delete_comichouse(user, doc) {
 
     firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).delete();
-
-    loadsearch();
 
 }
 
@@ -959,14 +995,11 @@ function edit_bookname_watchcomic(user, name, number, page) {
         readto: `${page}`
     });
     firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${name}`).delete();
-    loadsearch();
 }
 
 function edit_readto_watchcomic(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
-
-    loadsearch();
 
 }
 
@@ -974,7 +1007,6 @@ function delete_watchcomic(user, doc) {
 
     firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${doc}`).delete();
 
-    loadsearch();
 }
 
 function go_watchcomic(doc) {
