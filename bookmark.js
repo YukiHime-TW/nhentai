@@ -1,5 +1,3 @@
-var search_list = `<table><thead><tr><th>Book Name</th><th>Link</th><th>Delete</th></tr></thead>`;
-
 var vid = `<div class="video-container">
 <iframe id="video" src="https://www.youtube.com/embed/h8SWOJ1zrhw?autoplay=0&loop=1&fs=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
 <br>
@@ -180,7 +178,7 @@ var withemailverified_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div></center><br>
     </div>
   <hr>
 
@@ -232,7 +230,7 @@ var noneemailverifed_PC = `<div id="page">
   <div class="row">
     <div class="col-md-8">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div></center><br>
     </div>
     
     <div class="col-md-4">
@@ -291,7 +289,7 @@ var noneemailverifed_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div></center><br>
     </div>
   <hr>
 
@@ -527,54 +525,111 @@ function add1() {
 }
 
 function loadsearch() {
-
     var user = firebase.auth().currentUser;
 
-    search_list = `<table>
-                    <thead>
-                        <tr>
-                            <th>網站</th>
-                            <th>書名</th>
-                            <th>更新書名</th>
-                            <th>頁碼</th>
-                            <th>更新頁碼</th>
-                            <th>連結</th>
-                            <th>刪除</th>
-                            <th>分享</th>
-                        </tr>
-                    </thead>`;
+    document.getElementById("bookmarks").innerHTML = "";
+
+    var list = document.createElement("table");
+    var list_thead = document.createElement("thead");
+    var list_tr = document.createElement("tr");
+    var list_tbody = document.createElement("tbody");
+
+    ["網站", "書名", "更新書名", "頁碼", "更新頁碼", "連結", "刪除", "分享"].forEach(function (el) {
+        var list_th = document.createElement("th");
+        list_th.appendChild(document.createTextNode(el));
+        list_tr.appendChild(list_th);
+    });
+
+    list_thead.appendChild(list_tr);
+
+    list.appendChild(list_thead);
 
     firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>E-Hentai</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc(bookname_update()).set({
+            var list_tr = document.createElement("tr");
 
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_ehentai("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                <input type='button' value='Share' onclick='sharing(${count})'></input>
-                                <input type="hidden" id='we${count}' value='https://e-hentai.org/g/${doc.data().number}'></input>
-                                </td>   
-                            </tr>`;
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `E-Hentai`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.setAttribute("type", "button");
+            bookname_edit.setAttribute("value", "Edit");
+            bookname_edit.setAttribute("onclick", `edit_bookname_ehentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_ehentai("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_ehentai("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://e-hentai.org/g/${doc.data().number}`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -582,33 +637,88 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>EXHentai</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/exhentai/book/").doc(bookname_update()).set({
+            var list_tr = document.createElement("tr");
 
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/exhentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_exhentai("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                    <input type='button' value='Share' onclick='sharing(${count})'></input>
-                                    <input type="hidden" id='we${count}' value='https://exhentai.org/g/${doc.data().number}'></input>
-                                </td>   
-                            </tr>`;
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `EXHentai`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.setAttribute("type", "button");
+            bookname_edit.setAttribute("value", "Edit");
+            bookname_edit.setAttribute("onclick", `edit_bookname_exhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_exhentai("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_exhentai("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://exhentai.org/g/${doc.data().number}`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -616,33 +726,88 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>Nhentai</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc(bookname_update()).set({
+            var list_tr = document.createElement("tr");
 
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_nhentai("${doc.data().number}",${doc.data().readto});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_nhentai("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                <input type='button' value='Share' onclick='sharing(${count})'></input>
-                                <input type="hidden" id='we${count}' value='https://nhentai.net/g/${doc.data().number}/'></input>
-                                </td>   
-                            </tr>`;
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `Nhentai`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.setAttribute("type", "button");
+            bookname_edit.setAttribute("value", "Edit");
+            bookname_edit.setAttribute("onclick", `edit_bookname_nhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_nhentai("${doc.data().number}","${doc.data().readto}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_nhentai("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://nhentai.net/g/${doc.data().number}`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -650,29 +815,88 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>WNACG 紳士倉庫</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc(bookname_update()).set({
+            var list_tr = document.createElement("tr");
 
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_wnacg("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_wnacg("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                <input type='button' value='Share' onclick='sharing(${count})'></input>
-                                <input type="hidden" id='we${count}' value='https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html'></input>
-                                </td>   
-                            </tr>`;
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `WNACG`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.type = `button`;
+            bookname_edit.value = `Edit`;
+            bookname_edit.setAttribute("onclick", `edit_bookname_wnacg("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_wnacg("${doc.data().number}","${doc.data().readto}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_wnacg("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://m.wnacg.org/photos-slide-aid-${doc.data().number}.html`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -680,29 +904,88 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>動漫屋</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc(bookname_update()).set({
+            var list_tr = document.createElement("tr");
 
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_comichouse("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_comichouse("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                <input type='button' value='Share' onclick='sharing(${count})'></input>                                
-                                <input type="hidden" id='we${count}' value='https://dm5.io/${doc.data().number}/'></input>
-                                </td>
-                            </tr>`;
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `動漫屋`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.type = `button`;
+            bookname_edit.value = `Edit`;
+            bookname_edit.setAttribute("onclick", `edit_bookname_comichouse("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_comichouse("${doc.data().number}","${doc.data().readto}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_comichouse("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://dm5.io/${doc.data().number}/`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -710,33 +993,93 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>看動漫</td>
-                                <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc(bookname_update()).set({
-                                    
-                                    number: "${doc.data().number}",
-                                    readto: "${doc.data().readto}"
-                                });firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_watchcomic("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_watchcomic("${user.uid}","${doc.id}");'></input></td>
-                                <td>
-                                    <input type='button' value='Share' onclick='sharing(${count})'></input>
-                                    <input type="hidden" id='we${count}' value='https://tw.manhuagui.com/comic/${doc.data().number}/' ></input>
-                                </td>
-                            </tr>`;
+
+            var list_tr = document.createElement("tr");
+
+            var from = document.createElement("td");
+
+            var book_name = document.createElement("td");
+
+            var bookname_edit_td = document.createElement("td");
+            var bookname_edit = document.createElement("input");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+
+            var sha_td = document.createElement("td");
+            var sha_hidden = document.createElement("input");
+            var sha = document.createElement("input");
+
+            //from
+            from.innerText = `看動漫`;
+            list_tr.appendChild(from);
+
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            //edit book name
+            bookname_edit.type = `button`;
+            bookname_edit.value = `Edit`;
+            bookname_edit.setAttribute("onclick", `edit_bookname_watchcomic("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")`);
+            bookname_edit_td.appendChild(bookname_edit);
+            list_tr.appendChild(bookname_edit_td);
+
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_watchcomic("${doc.data().number}","${doc.data().readto}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_watchcomic("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
+
+            //share
+            sha.type = `button`;
+            sha.value = `Share`;
+            sha.setAttribute("onclick", `sharing(${count})`);
+            sha_td.appendChild(sha);
+            sha_hidden.type = `hidden`;
+            sha_hidden.id = `we${count}`;
+            sha_hidden.value = `https://tw.manhuagui.com/comic/${doc.data().number}/`;
+            sha_td.appendChild(sha_hidden);
+            list_tr.appendChild(sha_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
 
-        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
-
-        count = 0;
+        list.appendChild(list_tbody);
 
     });
+
+    document.getElementById("bookmarks").appendChild(list);
 
 }
 
@@ -744,32 +1087,79 @@ function loadsearch_Phone() {
 
     var user = firebase.auth().currentUser;
 
-    search_list = `<table>
-                    <thead>
-                        <tr>
-                            <th>書名</th>
-                            <th>頁碼</th>
-                            <th>更新頁碼</th>
-                            <th>連結</th>
-                            <th>刪除</th>
-                        </tr>
-                    </thead>`;
+    document.getElementById("bookmarks").innerHTML = "";
+
+    var list = document.createElement("table");
+    var list_thead = document.createElement("thead");
+    var list_tr = document.createElement("tr");
+    var list_tbody = document.createElement("tbody");
+
+    ["書名","頁碼", "更新頁碼", "連結", "刪除"].forEach(function (el) {
+        var list_th = document.createElement("th");
+        list_th.appendChild(document.createTextNode(el));
+        list_tr.appendChild(list_th);
+    });
+    
+    list_thead.appendChild(list_tr);
+
+    list.appendChild(list_thead);
 
     firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_ehentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_ehentai_Phone("${user.uid}","${doc.id}");'></input></td> 
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_ehentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_ehentai("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_ehentai_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -777,17 +1167,58 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_exhentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_exhentai_Phone("${user.uid}","${doc.id}");'></input></td>  
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_exhentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_exhentai("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_exhentai_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -795,35 +1226,116 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_nhentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_nhentai(${doc.data().number},${doc.data().readto});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_nhentai_Phone("${user.uid}","${doc.id}");'></input></td>   
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_nhentai_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_nhentai("${doc.data().number}","${doc.data().readto}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_nhentai_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
 
+        list.appendChild(list_tbody);
     });
 
     firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_wnacg_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_wnacg(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_wnacg_Phone("${user.uid}","${doc.id}");'></input></td>
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_wnacg_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_wnacg("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_wnacg_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -831,17 +1343,58 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_comichouse_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_comichouse(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_comichouse_Phone("${user.uid}","${doc.id}");'></input></td>
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_comichouse_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_comichouse("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_comichouse_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
+
+        list.appendChild(list_tbody);
 
     });
 
@@ -849,24 +1402,72 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
-                                <td>${doc.id}</td>
-                                <td>${doc.data().readto}</td>
-                                <td><input type="button" value="Edit" onclick='edit_readto_watchcomic_Phone("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
-                                <td><input type="button" value="GO!" onclick='go_watchcomic(${doc.data().number});'></input></td>
-                                <td><input type='button' value='Delete' onclick='delete_watchcomic_Phone("${user.uid}","${doc.id}");'></input></td>
-                            </tr>`;
+            var list_tr = document.createElement("tr");
+
+            var book_name = document.createElement("td");
+
+            var read_to = document.createElement("td");
+
+            var readto_edit_td = document.createElement("td");
+            var readto_edit = document.createElement("input");
+
+            var go_td = document.createElement("td");
+            var go = document.createElement("input");
+
+            var del_td = document.createElement("td");
+            var del = document.createElement("input");
+            
+            //book name
+            book_name.innerText = `${doc.id}`;
+            list_tr.appendChild(book_name);
+
+            
+            //read to
+            read_to.innerText = `${doc.data().readto}`;
+            list_tr.appendChild(read_to);
+
+            //edit read to
+            readto_edit.type = `button`;
+            readto_edit.value = `Edit`;
+            readto_edit.setAttribute("onclick", `edit_readto_watchcomic_Phone("${user.uid}","${doc.id}","${doc.data().readto}")`);
+            readto_edit_td.appendChild(readto_edit);
+            list_tr.appendChild(readto_edit_td);
+
+            //go
+            go.type = `button`;
+            go.value = `GO!`;
+            go.setAttribute("onclick", `go_watchcomic("${doc.data().number}")`);
+            go_td.appendChild(go);
+            list_tr.appendChild(go_td);
+
+            //delete
+            del.type = `button`;
+            del.value = `Delete`;
+            del.setAttribute("onclick", `delete_watchcomic_Phone("${user.uid}","${doc.id}")`);
+            del_td.appendChild(del);
+            list_tr.appendChild(del_td);
 
             count++;
 
+            list_tbody.appendChild(list_tr);
+
         });
 
-        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
-
-        count = 0;
+        list.appendChild(list_tbody);
 
     });
 
+    document.getElementById("bookmarks").appendChild(list);
+
+}
+
+function edit_bookname_ehentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_ehentai(user, doc, page) {
@@ -907,6 +1508,15 @@ function go_ehentai(doc) {
 
 }
 
+function edit_bookname_exhentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_exhentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -945,6 +1555,15 @@ function go_exhentai(doc) {
 
 }
 
+function edit_bookname_nhentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_nhentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -979,8 +1598,17 @@ function delete_nhentai_Phone(user, doc) {
 
 function go_nhentai(doc, reading) {
 
-    window.open(`https://nhentai.net/g/${doc}/${reading}`);
+    window.open(`https://nhentai.net/g/${doc}/${reading}/`);
 
+}
+
+function edit_bookname_wnacg(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_wnacg(user, doc, page) {
@@ -1021,6 +1649,15 @@ function go_wnacg(doc) {
 
 }
 
+function edit_bookname_comichouse(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_comichouse(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -1057,6 +1694,15 @@ function go_comichouse(doc) {
 
     window.open(`https://dm5.io/${doc}/`);
 
+}
+
+function edit_bookname_watchcomic(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_watchcomic(user, doc, page) {
@@ -1111,7 +1757,7 @@ function sharing(count) {
 
 function readto_update(page) {
 
-    var read = window.prompt(`讀到哪裡?\r( Where have you read to? )`,`${page}`);
+    var read = window.prompt(`讀到哪裡?\r( Where have you read to? )`, `${page}`);
 
     if (read) {
 
@@ -1125,18 +1771,14 @@ function readto_update(page) {
 
 }
 
-function bookname_update() {
+function bookname_update(name) {
 
-    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`);
+    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`, `${name}`);
 
-    if (book_name) {
-
+    if (book_name === null) {
         return book_name;
-
     } else {
-
-        return;
-
+        return book_name;
     }
 }
 
