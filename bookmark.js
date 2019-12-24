@@ -12,11 +12,12 @@ var tweet = `<center><div id="twitter">
 </div></center>`;
 
 var table_control = `<div id=table_control>
-    <input type="button" id="spanFirst" onclick="firstPage()" value="第一頁"></input>&nbsp;&nbsp;
-    <input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;&nbsp;
-    <input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;&nbsp;
-    <input type="button" id="spanLast" onclick="lastPage()" value="最後一頁"></input>&nbsp;&nbsp;
-    第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁</div>`;
+    <input type="button" id="spanFirst" onclick="firstPage()" value="第一頁"></input>&nbsp;
+    <input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;
+    第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁&nbsp;
+    <input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;
+    <input type="button" id="spanLast" onclick="lastPage()" value="最後一頁"></input>
+    </div>`;
 
 var data_per_page = 15;
 
