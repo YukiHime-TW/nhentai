@@ -1094,12 +1094,12 @@ function loadsearch_Phone() {
     var list_tr = document.createElement("tr");
     var list_tbody = document.createElement("tbody");
 
-    ["書名","頁碼", "更新頁碼", "連結", "刪除"].forEach(function (el) {
+    ["書名", "頁碼", "更新頁碼", "連結", "刪除"].forEach(function (el) {
         var list_th = document.createElement("th");
         list_th.appendChild(document.createTextNode(el));
         list_tr.appendChild(list_th);
     });
-    
+
     list_thead.appendChild(list_tr);
 
     list.appendChild(list_thead);
@@ -1122,12 +1122,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
@@ -1181,12 +1181,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
@@ -1240,12 +1240,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
@@ -1298,12 +1298,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
@@ -1357,12 +1357,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
@@ -1416,12 +1416,12 @@ function loadsearch_Phone() {
 
             var del_td = document.createElement("td");
             var del = document.createElement("input");
-            
+
             //book name
             book_name.innerText = `${doc.id}`;
             list_tr.appendChild(book_name);
 
-            
+
             //read to
             read_to.innerText = `${doc.data().readto}`;
             list_tr.appendChild(read_to);
