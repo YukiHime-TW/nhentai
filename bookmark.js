@@ -20,9 +20,9 @@ var table_control_PC = `<div id=table_control>
     </div>`;
 
 var table_control_Phone = `<div id=table_control>
-<input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;
+<input type="button" id="spanPre" onclick="prePage_Phone()" value="上一頁"></input>&nbsp;
 第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁&nbsp;
-<input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;
+<input type="button" id="spanNext" onclick="nextPage_Phone()" value="下一頁"></input>&nbsp;
 </div>`;
 
 var data_per_page = 15;
@@ -790,7 +790,7 @@ function loadsearch_Phone() {
         showCurrPage(1);
         showTotalPage();
 
-        firstPage();
+        firstPage_Phone();
 
         count = 1;
 
@@ -1342,6 +1342,87 @@ function lastPage() {
     document.getElementById("spanPre").disabled = false;
     document.getElementById("spanNext").disabled = true;
     document.getElementById("spanLast").disabled = true;
+
+}
+
+function firstPage_Phone() {
+
+    hide();
+
+    var table_body = document.getElementById("tb");
+
+    current_page = 1;
+
+    showCurrPage(current_page);
+
+    for (i = 0; i < data_per_page; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    document.getElementById("spanPre").disabled = true;
+    document.getElementById("spanNext").disabled = false;
+
+}
+
+function prePage_Phone() {
+
+    hide();
+
+    current_page--;
+
+    var table_body = document.getElementById("tb");
+
+    showCurrPage(current_page);
+
+    var firstR = firstRow(current_page);
+
+    var lastR = lastRow(firstR);
+
+    for (i = firstR - 1; i < lastR - 1; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    if (current_page === 1) {
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = false;
+    } else {
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = false;
+    }
+
+}
+
+function nextPage_Phone() {
+
+    hide();
+
+    current_page++;
+
+    var table_body = document.getElementById("tb");
+
+    showCurrPage(current_page);
+
+    var firstR = firstRow(current_page);
+
+    var lastR = lastRow(firstR);
+
+    for (i = firstR - 1; i < lastR - 1; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    if (current_page === last) {
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = true;
+    } else {
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = false;
+    }
 
 }
 
