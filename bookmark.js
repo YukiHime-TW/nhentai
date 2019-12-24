@@ -11,13 +11,19 @@ var tweet = `<center><div id="twitter">
 </script>
 </div></center>`;
 
-var table_control = `<div id=table_control>
+var table_control_PC = `<div id=table_control>
     <input type="button" id="spanFirst" onclick="firstPage()" value="第一頁"></input>&nbsp;
     <input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;
     第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁&nbsp;
     <input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;
     <input type="button" id="spanLast" onclick="lastPage()" value="最後一頁"></input>
     </div>`;
+
+var table_control_Phone = `<div id=table_control>
+<input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;
+第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁&nbsp;
+<input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;
+</div>`;
 
 var data_per_page = 15;
 
@@ -114,7 +120,7 @@ var withemailverified_PC = `<div id="page">
   <div class="row">
     <div class="col-md-8">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <center><div id="bookmarks"></div><br>${table_control}</center><br>
+    <center><div id="bookmarks"></div><br>${table_control_PC}</center><br>
     </div>
     
     <div class="col-md-4">
@@ -190,7 +196,7 @@ var withemailverified_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <center><div id="bookmarks"></div><br>${table_control}</center><br>
+    <center><div id="bookmarks"></div><br>${table_control_Phone}</center><br>
     </div>
   <hr>
 
@@ -242,7 +248,7 @@ var noneemailverifed_PC = `<div id="page">
   <div class="row">
     <div class="col-md-8">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <center><div id="bookmarks"></div><br>${table_control}</center><br>
+    <center><div id="bookmarks"></div><br>${table_control_PC}</center><br>
     </div>
     
     <div class="col-md-4">
@@ -301,7 +307,7 @@ var noneemailverifed_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <center><div id="bookmarks"></div><br>${table_control}</center><br>
+    <center><div id="bookmarks"></div><br>${table_control_Phone}</center><br>
     </div>
   <hr>
 
@@ -1271,7 +1277,7 @@ function prePage() {
         document.getElementById("spanPre").disabled = true;
         document.getElementById("spanNext").disabled = false;
         document.getElementById("spanLast").disabled = false;
-    }else{
+    } else {
         document.getElementById("spanFirst").disabled = false;
         document.getElementById("spanPre").disabled = false;
         document.getElementById("spanNext").disabled = false;
@@ -1294,7 +1300,7 @@ function nextPage() {
 
     var lastR = lastRow(firstR);
 
-    for (i = firstR - 1; i < lastR-1; i++) {
+    for (i = firstR - 1; i < lastR - 1; i++) {
 
         table_body.rows[i].style.display = "";
 
@@ -1305,7 +1311,7 @@ function nextPage() {
         document.getElementById("spanPre").disabled = false;
         document.getElementById("spanNext").disabled = true;
         document.getElementById("spanLast").disabled = true;
-    }else{
+    } else {
         document.getElementById("spanFirst").disabled = false;
         document.getElementById("spanPre").disabled = false;
         document.getElementById("spanNext").disabled = false;
@@ -1326,7 +1332,7 @@ function lastPage() {
 
     var firstR = firstRow(current_page);
 
-    for (i = firstR - 1; i < data_count-1; i++) {
+    for (i = firstR - 1; i < data_count - 1; i++) {
 
         table_body.rows[i].style.display = "";
 
@@ -1346,8 +1352,8 @@ function firstRow(currPageNum) {
 
 function lastRow(firstRow) {
     var lastRow = firstRow + data_per_page;
-    if (lastRow > data_count ) {
-        lastRow = data_count ;
+    if (lastRow > data_count) {
+        lastRow = data_count;
     }
     return lastRow;
 }
@@ -1371,7 +1377,7 @@ function hide() {
 
     var table_body = document.getElementById("tb");
 
-    for (var i = 0; i < data_count -1; i++) {
+    for (var i = 0; i < data_count - 1; i++) {
         table_body.rows[i].style.display = "none";
     }
 }
