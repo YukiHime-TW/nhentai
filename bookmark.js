@@ -11,6 +11,15 @@ var tweet = `<center><div id="twitter">
 </script>
 </div></center>`;
 
+var table_control = `<div id=table_control>
+    <input type="button" id="spanFirst" onclick="firstPage()" value="第一頁"></input>&nbsp;&nbsp;
+    <input type="button" id="spanPre" onclick="prePage()" value="上一頁"></input>&nbsp;&nbsp;
+    <input type="button" id="spanNext" onclick="nextPage()" value="下一頁"></input>&nbsp;&nbsp;
+    <input type="button" id="spanLast" onclick="lastPage()" value="最後一頁"></input>&nbsp;&nbsp;
+    第&nbsp;<span id="spanPageNum"></span>&nbsp;頁/共&nbsp;<span id="spanTotalPage">${last}</span>&nbsp;頁</div>`;
+
+var data_per_page = 15;
+
 var withemailverify = `<select id="website">
                         <option value="看動漫">看動漫</option>
                         <option value="動漫屋">動漫屋</option>
@@ -104,7 +113,7 @@ var withemailverified_PC = `<div id="page">
   <div class="row">
     <div class="col-md-8">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div><br>${table_control}</center><br>
     </div>
     
     <div class="col-md-4">
@@ -180,7 +189,7 @@ var withemailverified_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div><br>${table_control}</center><br>
     </div>
   <hr>
 
@@ -232,7 +241,7 @@ var noneemailverifed_PC = `<div id="page">
   <div class="row">
     <div class="col-md-8">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div><br>${table_control}</center><br>
     </div>
     
     <div class="col-md-4">
@@ -291,7 +300,7 @@ var noneemailverifed_Phone = `<div id="page">
   <div class="row">
     <div class="col-md-12">
     <center><input type="button" id="refresh" value="重新載入表格 ( refresh the chart )" onclick="refreshing_Phone()"></center><br> 
-    <div id="bookmarks"></div><br>
+    <center><div id="bookmarks"></div><br>${table_control}</center><br>
     </div>
   <hr>
 
@@ -341,7 +350,13 @@ firebase.initializeApp(firebaseConfig);
 
 var user = firebase.auth().currentUser;
 
-var count = 0;
+var count = 1;
+
+var current_page;
+
+var last;
+
+var data_count;
 
 function add() {
 
@@ -481,26 +496,16 @@ function loadsearch() {
                             <th>刪除</th>
                             <th>分享</th>
                         </tr>
-                    </thead>`;
+                    </thead><tbody id="tb">`;
 
     firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>E-Hentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/ehentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_ehentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_ehentai("${doc.data().number}");'></input></td>
@@ -521,20 +526,10 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>EXHentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/exhentai/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/exhentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_exhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_exhentai("${doc.data().number}");'></input></td>
@@ -555,20 +550,10 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>Nhentai</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='
-                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });
-                                firebase.firestore().collection("/${user.uid}/nhentai/book/").doc("${doc.id}").delete();
-                                loadsearch();
-                                '></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_nhentai("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_nhentai("${doc.data().number}",${doc.data().readto});'></input></td>
@@ -589,16 +574,10 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>WNACG 紳士倉庫</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/wnacg/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });firebase.firestore().collection("/${user.uid}/wnacg/book/").doc("${doc.id}").delete();loadsearch();'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_wnacg("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_wnacg("${doc.data().number}");'></input></td>
@@ -619,16 +598,10 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>動漫屋</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc(bookname_update()).set({
-
-                                    number: "${doc.data().number}",
-                            
-                                    readto: "${doc.data().readto}"
-                            
-                                });firebase.firestore().collection("/${user.uid}/動漫屋/book/").doc("${doc.id}").delete();loadsearch();'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_comichouse("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_comichouse("${doc.data().number}");'></input></td>
@@ -649,14 +622,10 @@ function loadsearch() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>看動漫</td>
                                 <td>${doc.id}</td>
-                                <td><input type="button" value="Edit" onclick='firebase.firestore().collection("/${user.uid}/看動漫/book/").doc(bookname_update()).set({
-                                    
-                                    number: "${doc.data().number}",
-                                    readto: "${doc.data().readto}"
-                                });firebase.firestore().collection("/${user.uid}/看動漫/book/").doc("${doc.id}").delete();loadsearch();'></td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_watchcomic("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}")'></td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
                                 <td><input type="button" value="GO!" onclick='go_watchcomic("${doc.data().number}");'></input></td>
@@ -671,9 +640,16 @@ function loadsearch() {
 
         });
 
-        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
+        data_count = count;
 
-        count = 0;
+        document.getElementById("bookmarks").innerHTML = `${search_list}</tbody></table>`;
+
+        showCurrPage(1);
+        showTotalPage();
+
+        firstPage();
+
+        count = 1;
 
     });
 
@@ -692,13 +668,13 @@ function loadsearch_Phone() {
                             <th>連結</th>
                             <th>刪除</th>
                         </tr>
-                    </thead>`;
+                    </thead><tbody id="tb">`;
 
     firebase.firestore().collection(`/${user.uid}/ehentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_ehentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -716,7 +692,7 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_exhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -734,7 +710,7 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_nhentai("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -752,7 +728,7 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_wnacg("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -770,7 +746,7 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_comichouse("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -788,7 +764,7 @@ function loadsearch_Phone() {
 
         querySnapshot.forEach(function (doc) {
 
-            search_list += `<tr>
+            search_list += `<tr id="book${count}" style="display:none;">
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_watchcomic("${user.uid}","${doc.id}","${doc.data().readto}");'></input></td>
@@ -800,12 +776,28 @@ function loadsearch_Phone() {
 
         });
 
-        document.getElementById("bookmarks").innerHTML = `${search_list}</table>`;
+        data_count = count;
 
-        count = 0;
+        document.getElementById("bookmarks").innerHTML = `${search_list}</tbody></table>`;
+
+        showCurrPage(1);
+        showTotalPage();
+
+        firstPage();
+
+        count = 1;
 
     });
 
+}
+
+function edit_bookname_ehentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/ehentai/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_ehentai(user, doc, page) {
@@ -830,6 +822,15 @@ function go_ehentai(doc) {
 
 }
 
+function edit_bookname_exhentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_exhentai(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/exhentai/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -850,6 +851,15 @@ function go_exhentai(doc) {
 
     window.open(`https://exhentai.org/g/${doc}`);
 
+}
+
+function edit_bookname_nhentai(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/nhentai/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_nhentai(user, doc, page) {
@@ -874,6 +884,15 @@ function go_nhentai(doc, reading) {
 
 }
 
+function edit_bookname_wnacg(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_wnacg(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/wnacg/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -896,6 +915,15 @@ function go_wnacg(doc) {
 
 }
 
+function edit_bookname_comichouse(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${name}`).delete();
+    loadsearch();
+}
+
 function edit_readto_comichouse(user, doc, page) {
 
     firebase.firestore().collection(`/${user}/動漫屋/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
@@ -916,6 +944,15 @@ function go_comichouse(doc) {
 
     window.open(`https://dm5.io/${doc}/`);
 
+}
+
+function edit_bookname_watchcomic(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/看動漫/book/`).doc(`${name}`).delete();
+    loadsearch();
 }
 
 function edit_readto_watchcomic(user, doc, page) {
@@ -955,7 +992,7 @@ function sharing(count) {
 
 function readto_update(page) {
 
-    var read = window.prompt(`讀到哪裡?\r( Where have you read to? )`,`${page}`);
+    var read = window.prompt(`讀到哪裡?\r( Where have you read to? )`, `${page}`);
 
     if (read) {
 
@@ -969,18 +1006,14 @@ function readto_update(page) {
 
 }
 
-function bookname_update() {
+function bookname_update(name) {
 
-    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`);
+    var book_name = window.prompt(`要改成甚麼名字?\r( What name are you changing to? )`, `${name}`);
 
-    if (book_name) {
-
+    if (book_name === null) {
         return book_name;
-
     } else {
-
-        return;
-
+        return book_name;
     }
 }
 
@@ -1188,6 +1221,158 @@ function refreshing_Phone() {
 
     setTimeout("document.getElementById('refresh').disabled=false;", 3000);
     //<3
+}
+
+function firstPage() {
+
+    hide();
+
+    var table_body = document.getElementById("tb");
+
+    current_page = 1;
+
+    showCurrPage(current_page);
+
+    for (i = 0; i < data_per_page; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    document.getElementById("spanFirst").disabled = true;
+    document.getElementById("spanPre").disabled = true;
+    document.getElementById("spanNext").disabled = false;
+    document.getElementById("spanLast").disabled = false;
+}
+
+function prePage() {
+
+    hide();
+
+    current_page--;
+
+    var table_body = document.getElementById("tb");
+
+    showCurrPage(current_page);
+
+    var firstR = firstRow(current_page);
+
+    var lastR = lastRow(firstR);
+
+    for (i = firstR - 1; i < lastR - 1; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    if (current_page === 1) {
+        document.getElementById("spanFirst").disabled = true;
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = false;
+        document.getElementById("spanLast").disabled = false;
+    }else{
+        document.getElementById("spanFirst").disabled = false;
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = false;
+        document.getElementById("spanLast").disabled = false;
+    }
+
+}
+
+function nextPage() {
+
+    hide();
+
+    current_page++;
+
+    var table_body = document.getElementById("tb");
+
+    showCurrPage(current_page);
+
+    var firstR = firstRow(current_page);
+
+    var lastR = lastRow(firstR);
+
+    for (i = firstR - 1; i < lastR-1; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    if (current_page === last) {
+        document.getElementById("spanFirst").disabled = false;
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = true;
+        document.getElementById("spanLast").disabled = true;
+    }else{
+        document.getElementById("spanFirst").disabled = false;
+        document.getElementById("spanPre").disabled = false;
+        document.getElementById("spanNext").disabled = false;
+        document.getElementById("spanLast").disabled = false;
+    }
+
+}
+
+function lastPage() {
+
+    hide();
+
+    current_page = last;
+
+    showCurrPage(current_page);
+
+    var table_body = document.getElementById("tb");
+
+    var firstR = firstRow(current_page);
+
+    for (i = firstR - 1; i < data_count-1; i++) {
+
+        table_body.rows[i].style.display = "";
+
+    }
+
+    document.getElementById("spanFirst").disabled = false;
+    document.getElementById("spanPre").disabled = false;
+    document.getElementById("spanNext").disabled = true;
+    document.getElementById("spanLast").disabled = true;
+
+}
+
+// 计算将要显示的页面的首行和尾行
+function firstRow(currPageNum) {
+    return data_per_page * (currPageNum - 1) + 1;
+}
+
+function lastRow(firstRow) {
+    var lastRow = firstRow + data_per_page;
+    if (lastRow > data_count ) {
+        lastRow = data_count ;
+    }
+    return lastRow;
+}
+
+function showCurrPage(cpn) {
+    document.getElementById("spanPageNum").innerHTML = cpn;
+}
+
+function showTotalPage() {
+    var totalpage = parseInt(count / data_per_page);
+    if (0 != count % data_per_page) {
+        totalpage += 1;
+    }
+    var total = document.getElementById("spanTotalPage");
+    total.innerText = totalpage;
+    last = totalpage;
+}
+
+//隐藏所有行
+function hide() {
+
+    var table_body = document.getElementById("tb");
+
+    for (var i = 0; i < data_count -1; i++) {
+        table_body.rows[i].style.display = "none";
+    }
 }
 
 window.addEventListener("load", initial, false);
