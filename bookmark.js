@@ -1079,6 +1079,8 @@ function loadsearch() {
 
     });
 
+    count=0;
+
     document.getElementById("bookmarks").appendChild(list);
 
 }
@@ -1457,6 +1459,7 @@ function loadsearch_Phone() {
 
     });
 
+    count=0;
     document.getElementById("bookmarks").appendChild(list);
 
 }
