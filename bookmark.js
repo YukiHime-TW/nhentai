@@ -93,7 +93,7 @@ var withemailverified_PC = `<div id="page">
     
         <form class="form-inline my-2 my-lg-0">
 
-        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018-bookmark.pptx'">PPT</button>
 
         </form>
         &emsp;
@@ -179,7 +179,7 @@ var withemailverified_Phone = `<div id="page">
   </ul>
   <form class="form-inline my-2 my-lg-0">
 
-        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'">PPT</button>
 
         </form>
         &emsp;
@@ -238,7 +238,7 @@ var noneemailverifed_PC = `<div id="page">
   </ul>
   <form class="form-inline my-2 my-lg-0">
 
-        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'">PPT</button>
 
         </form>
         &emsp;
@@ -304,7 +304,7 @@ var noneemailverifed_Phone = `<div id="page">
   </ul>
   <form class="form-inline my-2 my-lg-0">
 
-        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'">PPT</button>
 
         </form>
         &emsp;
