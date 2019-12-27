@@ -178,6 +178,12 @@ var withemailverified_Phone = `<div id="page">
     </li>
   </ul>
   <form class="form-inline my-2 my-lg-0">
+
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+
+        </form>
+        &emsp;
+  <form class="form-inline my-2 my-lg-0">
     <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
     </form>
 </div>
@@ -230,6 +236,13 @@ var noneemailverifed_PC = `<div id="page">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
   </ul>
+  <form class="form-inline my-2 my-lg-0">
+
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+
+        </form>
+        &emsp;
+  
   <form class="form-inline my-2 my-lg-0">
     <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
     </form>
@@ -289,6 +302,12 @@ var noneemailverifed_Phone = `<div id="page">
     <li class="nav-item">
       <a class="nav-link" href="https://tw.manhuagui.com/" target="_blank">看動漫 </a>
   </ul>
+  <form class="form-inline my-2 my-lg-0">
+
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
+
+        </form>
+        &emsp;
   <form class="form-inline my-2 my-lg-0">
     <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
     </form>
