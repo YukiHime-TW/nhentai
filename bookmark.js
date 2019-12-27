@@ -93,6 +93,12 @@ var withemailverified_PC = `<div id="page">
     
         <form class="form-inline my-2 my-lg-0">
 
+        <button class="btn btn-outline-danger my-2 my-sm-0" a href="manga-bookmark.pptx" target="_blank"><i class="fa fa-download"></i> PPT</button>
+
+        </form>
+        &emsp;
+        <form class="form-inline my-2 my-lg-0">
+
             <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
