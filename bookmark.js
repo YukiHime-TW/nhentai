@@ -93,7 +93,7 @@ var withemailverified_PC = `<div id="page">
     
         <form class="form-inline my-2 my-lg-0">
 
-        <button class="btn btn-outline-danger my-2 my-sm-0" a href="manga-bookmark.pptx" target="_blank"><i class="fa fa-download"></i> PPT</button>
+        <a href="manga-bookmark.pptx"><button class="btn btn-outline-danger my-2 my-sm-0"><i class="fa fa-download"></i> PPT</button></a>
 
         </form>
         &emsp;
@@ -1500,5 +1500,7 @@ function hide() {
         table_body.rows[i].style.display = "none";
     }
 }
+
+
 
 window.addEventListener("load", initial, false);
