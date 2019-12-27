@@ -41,7 +41,7 @@ var noneemailverify = `只支援看動漫`;
 
 var withemailverified_PC = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+    <a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank"><img src="icon.jpg" id="icon"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,7 +152,7 @@ var withemailverified_PC = `<div id="page">
 
 var withemailverified_Phone = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank"><img src="icon.jpg" id="icon"></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> 
@@ -221,7 +221,7 @@ var withemailverified_Phone = `<div id="page">
 
 var noneemailverifed_PC = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank"><img src="icon.jpg" id="icon"></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> 
@@ -280,7 +280,7 @@ var noneemailverifed_PC = `<div id="page">
 
 var noneemailverifed_Phone = `<div id="page">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank">NOTE</a>
+<a class="navbar-brand" href="https://twitter.com/yukihimenote" target="_blank"><img src="icon.jpg" id="icon"></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#LIST" aria-controls="LIST" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> 
