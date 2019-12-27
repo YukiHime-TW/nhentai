@@ -90,16 +90,13 @@ var withemailverified_PC = `<div id="page">
             </li>
 
         </ul>
-    
         <form class="form-inline my-2 my-lg-0">
 
         <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'"><i class="fa fa-download"></i> PPT</button>
-
-        </form>
+           
         &emsp;
-        <form class="form-inline my-2 my-lg-0">
-
-            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
 
@@ -180,12 +177,12 @@ var withemailverified_Phone = `<div id="page">
   <form class="form-inline my-2 my-lg-0">
 
         <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'"><i class="fa fa-download"></i> PPT</button>
+           
+        &emsp;
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
-        &emsp;
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
-    </form>
 </div>
 </nav>
 
@@ -239,13 +236,12 @@ var noneemailverifed_PC = `<div id="page">
   <form class="form-inline my-2 my-lg-0">
 
         <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'"><i class="fa fa-download"></i> PPT</button>
+           
+        &emsp;
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
-        &emsp;
-  
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
-    </form>
 </div>
 </nav>
 
@@ -305,12 +301,12 @@ var noneemailverifed_Phone = `<div id="page">
   <form class="form-inline my-2 my-lg-0">
 
         <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'"><i class="fa fa-download"></i> PPT</button>
+           
+        &emsp;
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
-        &emsp;
-  <form class="form-inline my-2 my-lg-0">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
-    </form>
 </div>
 </nav>
 
