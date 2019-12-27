@@ -93,7 +93,7 @@ var withemailverified_PC = `<div id="page">
     
         <form class="form-inline my-2 my-lg-0">
 
-        <button class="btn btn-outline-danger my-2 my-sm-0" a href="manga-bookmark.pptx" target="_blank"><i class="fa fa-download"></i> PPT</button>
+        <button class="btn btn-outline-danger my-2 my-sm-0" a href="https://yukihime-tw.github.io/nhentai/manga-bookmark.pptx" target="_blank"><i class="fa fa-download"></i> PPT</button>
 
         </form>
         &emsp;
