@@ -93,7 +93,7 @@ var withemailverified_PC = `<div id="page">
     
         <form class="form-inline my-2 my-lg-0">
 
-        <button class="btn btn-outline-danger my-2 my-sm-0"onclick="window.open('manga-bookmark.pptx')" ><i class="fa fa-download"></i> PPT</button>
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='manga-bookmark.pptx'">PPT</button>
 
         </form>
         &emsp;
