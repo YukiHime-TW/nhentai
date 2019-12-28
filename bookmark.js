@@ -1297,16 +1297,38 @@ function firstPage() {
 
     showCurrPage(current_page);
 
-    for (i = 0; i < data_per_page; i++) {
+    if (data_count > data_per_page) {
+        for (i = 0; i < data_per_page; i++) {
 
-        table_body.rows[i].style.display = "";
+            table_body.rows[i].style.display = "";
 
+        }
+    } else {
+        for (i = 0; i < data_count-1; i++) {
+
+            table_body.rows[i].style.display = "";
+
+        }
     }
 
-    document.getElementById("spanFirst").disabled = true;
-    document.getElementById("spanPre").disabled = true;
-    document.getElementById("spanNext").disabled = false;
-    document.getElementById("spanLast").disabled = false;
+    var totalpage = parseInt(data_count / data_per_page);
+
+    if (0 != data_count % data_per_page) {
+        totalpage += 1;
+    }
+
+    if (totalpage == 1) {
+        document.getElementById("spanFirst").disabled = true;
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = true;
+        document.getElementById("spanLast").disabled = true;
+    } else {
+        document.getElementById("spanFirst").disabled = true;
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = false;
+        document.getElementById("spanLast").disabled = false;
+    }
+
 }
 
 function prePage() {
@@ -1412,14 +1434,37 @@ function firstPage_Phone() {
 
     showCurrPage(current_page);
 
-    for (i = 0; i < data_per_page; i++) {
+    if (data_count > data_per_page) {
 
-        table_body.rows[i].style.display = "";
+        for (i = 0; i < data_per_page; i++) {
 
+            table_body.rows[i].style.display = "";
+
+        }
+
+    } else {
+
+        for (i = 0; i < data_count-1; i++) {
+
+            table_body.rows[i].style.display = "";
+
+        }
+            
     }
 
-    document.getElementById("spanPre").disabled = true;
-    document.getElementById("spanNext").disabled = false;
+    var totalpage = parseInt(data_count / data_per_page);
+
+    if (0 != data_count % data_per_page) {
+        totalpage += 1;
+    }
+
+    if (totalpage == 1) {
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = true;
+    } else {
+        document.getElementById("spanPre").disabled = true;
+        document.getElementById("spanNext").disabled = false;
+    }
 
 }
 
@@ -1501,8 +1546,8 @@ function showCurrPage(cpn) {
 }
 
 function showTotalPage() {
-    var totalpage = parseInt(count / data_per_page);
-    if (0 != count % data_per_page) {
+    var totalpage = parseInt(data_count / data_per_page);
+    if (0 != data_count % data_per_page) {
         totalpage += 1;
     }
     var total = document.getElementById("spanTotalPage");
