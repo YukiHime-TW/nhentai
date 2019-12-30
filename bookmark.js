@@ -346,7 +346,7 @@ var noneemailverifed_Phone = `<div id="page">
 </div>`;
 
 var log = `<div id="login">
-<h2>漫畫筆記本</h2>
+<a href="漫畫筆記本-00757028+00757018.pptx"><img src="icon.jpg" id="home_icon"></a><br>
 <h4>請登入</h4>
 <div class="form-group">
 <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
