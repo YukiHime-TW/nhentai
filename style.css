@@ -20,7 +20,7 @@ table, td, th{
     top: 50%;
     left: 50%;
     margin-left:-150px;
-    margin-top:-150px;
+    margin-top:-190px;
     text-align: center;
 }
 
@@ -119,4 +119,9 @@ div{
 #icon{
     height: 40px;
     width: 40px;
+}
+
+#home_icon{
+    height: 70px;
+    width: 70px;
 }
