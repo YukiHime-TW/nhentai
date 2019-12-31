@@ -34,7 +34,7 @@ var withemailverify = `<select id="website">
                         <option value="ehentai">E站(表)[ /g/ 以後的所有東西 ]</option>
                         <option value="exhentai">熊貓[ /g/ 以後的所有東西 ]</option>
                         <option value="read_only" disabled>以下Read to僅限輸入數字</option>
-                        <option value="nhentai">Nhentai</option>
+                        <option value="nhentai">N站</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
@@ -86,7 +86,7 @@ var withemailverified_PC = `<div id="page">
 
             <li class="nav-item">
 
-                <a class="nav-link " href="https://nhentai.net/" target="_blank">Nhentai</a>
+                <a class="nav-link " href="https://nhentai.net/" target="_blank">N站</a>
             </li>
 
         </ul>
@@ -171,7 +171,7 @@ var withemailverified_Phone = `<div id="page">
       <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link " href="https://nhentai.net/" target="_blank">Nhentai</a>
+      <a class="nav-link " href="https://nhentai.net/" target="_blank">N站</a>
     </li>
   </ul>
   <form class="form-inline my-2 my-lg-0">
