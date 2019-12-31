@@ -611,7 +611,7 @@ function loadsearch() {
 
     });
 
-    firebase.firestore().collection(`/${user.uid}/exhentai/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/exhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -633,9 +633,9 @@ function loadsearch() {
 
         });
 
-    });
+    });*/
 
-    firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -657,9 +657,9 @@ function loadsearch() {
 
         });
 
-    });
+    });*/
 
-    firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -681,7 +681,7 @@ function loadsearch() {
 
         });
 
-    });
+    });*/
 
     firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
 
@@ -777,7 +777,7 @@ function loadsearch_Phone() {
 
     });
 
-    firebase.firestore().collection(`/${user.uid}/exhentai/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/exhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -793,9 +793,9 @@ function loadsearch_Phone() {
 
         });
 
-    });
+    });*/
 
-    firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/nhentai/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -811,9 +811,9 @@ function loadsearch_Phone() {
 
         });
 
-    });
+    });*/
 
-    firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
+    /*firebase.firestore().collection(`/${user.uid}/wnacg/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
 
@@ -829,7 +829,7 @@ function loadsearch_Phone() {
 
         });
 
-    });
+    });*/
 
     firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
 
