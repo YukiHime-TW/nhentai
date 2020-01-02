@@ -1562,7 +1562,6 @@ function nextPage_Phone() {
 
 }
 
-// 计算将要显示的页面的首行和尾行
 function firstRow(currPageNum) {
     return data_per_page * (currPageNum - 1) + 1;
 }
@@ -1589,7 +1588,6 @@ function showTotalPage() {
     last = totalpage;
 }
 
-//隐藏所有行
 function hide() {
 
     var table_body = document.getElementById("tb");
