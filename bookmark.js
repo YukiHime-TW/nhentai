@@ -80,7 +80,7 @@ var withemailverified_PC = `<div id="page">
     
             <li class="nav-item">
 
-                <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
+                <a class="nav-link " href="https://exhentai.org/?f_cats=767" target="_blank">熊貓</a>
 
             </li>
 
@@ -168,7 +168,7 @@ var withemailverified_Phone = `<div id="page">
       <a class="nav-link " href="https://e-hentai.org/?f_cats=767" target="_blank">E站(表)</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link " href="https://exhentai.org/" target="_blank">熊貓</a>
+      <a class="nav-link " href="https://exhentai.org/?f_cats=767" target="_blank">熊貓</a>
     </li>
     <li class="nav-item">
       <a class="nav-link " href="https://nhentai.net/" target="_blank">N站</a>
