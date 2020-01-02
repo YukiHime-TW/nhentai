@@ -1125,7 +1125,7 @@ function newuser() {
 
         firebase.auth().currentUser.sendEmailVerification().then(function () {
 
-            alert("驗證信已經寄出!\r( Verify email has been send! )");
+            alert("驗證信已經寄出!(如未收到，請至垃圾郵件檢查)\r( Verify email has been send, if you didn't get it, please check the trash can)");
 
         }).catch(function (error) {
 
@@ -1295,6 +1295,18 @@ function resetpassword() {
 
     });
 
+}
+
+function re_Verify(){
+    firebase.auth().currentUser.sendEmailVerification().then(function () {
+
+        alert("驗證信已經寄出!(如未收到，請至垃圾郵件檢查)\r( Verify email has been send, if you didn't get it, please check the trash can)");
+
+    }).catch(function (error) {
+
+        alert("發生錯誤!\r( Error happened ! )");
+
+    });
 }
 
 function refreshing() {
