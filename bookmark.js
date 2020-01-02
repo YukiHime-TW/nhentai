@@ -96,10 +96,6 @@ var withemailverified_PC = `<div id="page">
            
         &emsp;
         
-        <button class="btn btn-outline-warning my-2 my-sm-0" onclick="re_Verify()" >重發驗證信</button>
-
-        &emsp;
-        
         <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
 
         </form>
@@ -182,10 +178,6 @@ var withemailverified_Phone = `<div id="page">
 
         <button type="button" class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='漫畫筆記本-00757028+00757018.pptx'"><i class="fa fa-download"></i> PPT</button>
            
-        &emsp;
-
-        <button class="btn btn-outline-warning my-2 my-sm-0" onclick="re_Verify()" >重發驗證信</button>
-
         &emsp;
         
         <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" >登出</button>
