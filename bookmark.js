@@ -255,7 +255,7 @@ var noneemailverifed_PC = `<div id="page">
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
     來源網站 : 看動漫<br><br></p>
-    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add()">
+    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1()">
     </div>
 </div>
 
@@ -320,7 +320,7 @@ var noneemailverifed_Phone = `<div id="page">
     ID : <input type="text" id="URL" value="" required /><br><br>
     閱讀頁碼 : <input type="text" id="readto" value="1" required /><br><br>
     來源網站 : 看動漫<br><br></p>
-    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add_Phone()">
+    <input type="button" id="add_new" value="新增 ( Add New Book )" onclick="add1_Phone()">
     </div>
 </div>
 
@@ -550,6 +550,44 @@ function add_Phone() {
     }
 
     var path = `/${user.uid}/${website}/book/`;
+
+    firebase.firestore().collection(`${path}`).doc(`${name}`).set({
+
+        number: `${Url}`,
+
+        readto: `${read_to}`
+
+    });
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("URL").value = "";
+
+    document.getElementById("readto").value = "1";
+
+    loadsearch_Phone();
+
+}
+
+function add1_Phone() {
+
+    var user = firebase.auth().currentUser;
+
+    if (document.getElementById("name").value === "") {
+
+        alert("請輸入標籤名稱");
+
+        return;
+
+    }
+
+    var name = document.getElementById("name").value;
+
+    var Url = document.getElementById("URL").value;
+
+    var read_to = document.getElementById("readto").value;
+
+    var path = `/${user.uid}/看動漫/book/`;
 
     firebase.firestore().collection(`${path}`).doc(`${name}`).set({
 
