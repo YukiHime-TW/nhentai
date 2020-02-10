@@ -903,6 +903,25 @@ function loadsearch_Phone() {
 
     });
 
+    firebase.firestore().collection(`/${user.uid}/other/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr id="book${count}" style="display:none;">
+                                <td>其他</td>
+                                <td>${doc.id}</td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_other("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_other("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_other("${user.uid}","${doc.id}");loadsearch();'></input></td>
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
     firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
