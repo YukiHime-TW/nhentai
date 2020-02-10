@@ -35,6 +35,8 @@ var withemailverify = `<select id="website">
                         <option value="exhentai">熊貓[ /g/ 以後的所有東西 ]</option>
                         <option value="read_only" disabled>以下Read to僅限輸入數字</option>
                         <option value="nhentai">N站</option>
+                        <option value="read_only" disabled>其他(直接在ID處輸入網址)</option>
+                        <option value="other">其他</option>
                         </select>`;
 
 var noneemailverify = `只支援看動漫`;
@@ -729,6 +731,30 @@ function loadsearch() {
 
     });
 
+    firebase.firestore().collection(`/${user.uid}/other/book/`).get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+            search_list += `<tr id="book${count}" style="display:none;">
+                                <td>其他</td>
+                                <td>${doc.id}</td>
+                                <td><input type="button" value="Edit" onclick='edit_bookname_other("${user.uid}","${doc.id}","${doc.data().number}","${doc.data().readto}");loadsearch();'></td>
+                                <td>${doc.data().readto}</td>
+                                <td><input type="button" value="Edit" onclick='edit_readto_other("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
+                                <td><input type="button" value="GO!" onclick='go_other("${doc.data().number}");'></input></td>
+                                <td><input type='button' value='Delete' onclick='delete_other("${user.uid}","${doc.id}");loadsearch();'></input></td>
+                                <td>
+                                <input type='button' value='Share' onclick='sharing(${count})'></input>
+                                <input type="hidden" id='we${count}' value='${doc.data().number}'></input>
+                                </td>   
+                            </tr>`;
+
+            count++;
+
+        });
+
+    });
+
     firebase.firestore().collection(`/${user.uid}/動漫屋/book/`).get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
@@ -1003,6 +1029,33 @@ function go_nhentai(doc, reading) {
     window.open(`https://nhentai.net/g/${doc}/${reading}`);
 
 }
+
+function edit_bookname_other(user, name, number, page) {
+    firebase.firestore().collection(`/${user}/other/book/`).doc(bookname_update(`${name}`)).set({
+        number: `${number}`,
+        readto: `${page}`
+    });
+    firebase.firestore().collection(`/${user}/other/book/`).doc(`${name}`).delete();
+}
+
+function edit_readto_other(user, doc, page) {
+
+    firebase.firestore().collection(`/${user}/other/book/`).doc(`${doc}`).update({ readto: readto_update(`${page}`) });
+
+}
+
+function delete_other(user, doc) {
+
+    firebase.firestore().collection(`/${user}/other/book/`).doc(`${doc}`).delete();
+
+}
+
+function go_other(doc) {
+
+    window.open(`${doc}`);
+
+}
+
 
 function edit_bookname_wnacg(user, name, number, page) {
     firebase.firestore().collection(`/${user}/wnacg/book/`).doc(bookname_update(`${name}`)).set({
