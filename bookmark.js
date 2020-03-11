@@ -1377,7 +1377,7 @@ function resetpassword() {
 
 }
 
-function re_Verify(){
+function re_Verify() {
     firebase.auth().currentUser.sendEmailVerification().then(function () {
 
         alert("驗證信已經寄出!(如未收到，請至垃圾郵件檢查)\r( Verify email has been send, if you didn't get it, please check the trash can)");
@@ -1430,7 +1430,7 @@ function firstPage() {
 
         }
     } else {
-        for (i = 0; i < data_count-1; i++) {
+        for (i = 0; i < data_count - 1; i++) {
 
             table_body.rows[i].style.display = "";
 
@@ -1570,12 +1570,12 @@ function firstPage_Phone() {
 
     } else {
 
-        for (i = 0; i < data_count-1; i++) {
+        for (i = 0; i < data_count - 1; i++) {
 
             table_body.rows[i].style.display = "";
 
         }
-            
+
     }
 
     var totalpage = parseInt(data_count / data_per_page);
