@@ -402,9 +402,25 @@ function add() {
 
     if (document.getElementById("name").value === "") {
 
-        alert("請輸入標籤名稱");
+        alert("未輸入名稱，將以預設名稱命名");
 
-        return;
+        if (localStorage.getItem("unnamed") === "0") {
+
+            localStorage.setItem("unnamed", 1);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        } else {
+
+            var temp_num = parseInt(localStorage.getItem("unnamed"));
+
+            temp_num++;
+
+            localStorage.setItem("unnamed", temp_num);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        }
 
     }
 
@@ -486,9 +502,25 @@ function add1() {
 
     if (document.getElementById("name").value === "") {
 
-        alert("請輸入標籤名稱");
+        alert("未輸入名稱，將以預設名稱命名");
 
-        return;
+        if (localStorage.getItem("unnamed") === "0") {
+
+            localStorage.setItem("unnamed", 1);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        } else {
+
+            var temp_num = parseInt(localStorage.getItem("unnamed"));
+
+            temp_num++;
+
+            localStorage.setItem("unnamed", temp_num);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        }
 
     }
 
@@ -524,9 +556,25 @@ function add_Phone() {
 
     if (document.getElementById("name").value === "") {
 
-        alert("請輸入標籤名稱");
+        alert("未輸入名稱，將以預設名稱命名");
 
-        return;
+        if (localStorage.getItem("unnamed") === "0") {
+
+            localStorage.setItem("unnamed", 1);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        } else {
+
+            var temp_num = parseInt(localStorage.getItem("unnamed"));
+
+            temp_num++;
+
+            localStorage.setItem("unnamed", temp_num);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        }
 
     }
 
@@ -585,9 +633,25 @@ function add1_Phone() {
 
     if (document.getElementById("name").value === "") {
 
-        alert("請輸入標籤名稱");
+        alert("未輸入名稱，將以預設名稱命名");
 
-        return;
+        if (localStorage.getItem("unnamed") === "0") {
+
+            localStorage.setItem("unnamed", 1);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        } else {
+
+            var temp_num = parseInt(localStorage.getItem("unnamed"));
+
+            temp_num++;
+
+            localStorage.setItem("unnamed", temp_num);
+
+            document.getElementById("name").value = "未命名的書" + localStorage.getItem("unnamed");
+
+        }
 
     }
 
@@ -1290,7 +1354,10 @@ function logout() {
 }
 
 function initial() {
-
+    if(!localStorage["unnamed"]){
+        localStorage.setItem("unnamed", "0");
+    }
+    
     firebase.auth().onAuthStateChanged(function (user) {
 
         if (user && user.emailVerified && outerWidth > 767) {
