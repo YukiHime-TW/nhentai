@@ -972,7 +972,6 @@ function loadsearch_Phone() {
         querySnapshot.forEach(function (doc) {
 
             search_list += `<tr id="book${count}" style="display:none;">
-                                <td>其他</td>
                                 <td>${doc.id}</td>
                                 <td>${doc.data().readto}</td>
                                 <td><input type="button" value="Edit" onclick='edit_readto_other("${user.uid}","${doc.id}","${doc.data().readto}");loadsearch();'></input></td>
